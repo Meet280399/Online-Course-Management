@@ -26,4 +26,10 @@ public class StudentServiceImpl implements StudentService{
 		return student.get();
 	}
 
+	@Override
+	public Student deleteById(Integer studentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

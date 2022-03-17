@@ -14,7 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student")
+@Access(AccessType.FIELD)
+@Table(name = "student")
 public class Student {
 
 	@Id
@@ -25,20 +26,17 @@ public class Student {
 	private String studentEmail;
 	private String studentAddress;
 	private long studentMobile;
-	
+
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	@ElementCollection
 	private Set<Course> courses = new HashSet<>();
-	private Course course;
-	
-	
 
 	public Student() {
-		
+
 	}
 
 	public Student(int studentId, String firstName, String lastName, String studentEmail, String studentAddress,
-			long studentMobile, Set<Course> courses, Course course) {
+			long studentMobile, Set<Course> courses) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -47,7 +45,6 @@ public class Student {
 		this.studentAddress = studentAddress;
 		this.studentMobile = studentMobile;
 		this.courses = courses;
-		this.course = course;
 	}
 
 	public int getStudentId() {
@@ -98,21 +95,12 @@ public class Student {
 		this.studentMobile = studentMobile;
 	}
 
-	
 	public Set<Course> getCourses() {
 		return courses;
 	}
 
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
-	}
-
-	public Course getCourse() {
-		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
 	}
 
 	@Override

@@ -19,10 +19,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "Course")
 public class Course {
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	@Column(name = "course_Id")
 	private int courseId;
 	private String courseName;
@@ -36,7 +37,7 @@ public class Course {
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private Set<Project> projects = new HashSet<>();
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = Student.class)
 	@JoinColumn(name = "studentId")
 	private Student student;
 

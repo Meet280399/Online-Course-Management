@@ -3,6 +3,8 @@ package com.course_management.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "Subject")
 public class Subject {
 
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	@Column(name = "subject_Id")
 	private int SubjectId;
 	private String SubjectName;

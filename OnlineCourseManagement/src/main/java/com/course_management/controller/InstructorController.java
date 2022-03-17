@@ -24,7 +24,7 @@ public class InstructorController {
 	@Autowired
 	private InstructorService instructorService;
 
-	//URL :- http://localhost:8090/OnlineCourseManagement/All-Instructor
+	//URL :- http://localhost:8090/OnlineCourseManagement/Instructor-Details/All-Instructor
 
 	@GetMapping("/All-Instructor")
 	public ResponseEntity<List<Instructor>> getAllInstructors() {

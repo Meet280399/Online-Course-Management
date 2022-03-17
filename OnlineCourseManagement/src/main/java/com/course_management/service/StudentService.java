@@ -10,7 +10,7 @@ import com.course_management.entity.Student;
 public interface StudentService {
 	public List<Student> getallIStudents();
 	public List<Student> deleteStudent(Integer studentId);
-	public List<Student> saveStudent(Student student);
+	public Student saveStudent(Student student);
 	public List<Student> updateStudent(Student student);
 	public Student findStudent(Integer studentId);
 }

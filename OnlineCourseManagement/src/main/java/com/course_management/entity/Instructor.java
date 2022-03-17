@@ -1,4 +1,5 @@
 package com.course_management.entity;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,120 +12,119 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+@Entity
+@Table(name = "instructor")
+public class Instructor {
+	@Id
+	@GeneratedValue
+	@Column(name = "instructor_id")
+	private int instructorId;
 
+	@Column(name = "instructor_name")
+	private String name;
 
-	
-	@Entity
-	@Table(name="instructor")
-	public class Instructor {
-		@Id
-		@GeneratedValue
-		@Column(name="instructor_id")
-		private int instructorId;
-		
-		@Column(name="instructor_name")
-		private String name;
-		
-		@Column(name="instructor_email")
-		private String email;
-		
-		@Column(name="instructor_mobile")
-		private String mobileNo;
-		
-		@Column(name="instructor_salary")
-		private double salary;
-		
-		@Column(name="grades_given")
-		private int grades;
-		
-		@OneToMany(mappedBy="instructor",cascade=CascadeType.ALL)
-		private Set<Feedback> feedbacks = new HashSet<>();//Initialization required to avoid NullPointerException
-		private Feedback feedback;
-		
-		public Instructor() {
-			
-		}
+	@Column(name = "instructor_email")
+	private String email;
 
-		public Instructor(int instructorId, String name, String email, String mobileNo, double salary, int grades,
-				Feedback feedback) {
-			super();
-			this.instructorId = instructorId;
-			this.name = name;
-			this.email = email;
-			this.mobileNo = mobileNo;
-			this.salary = salary;
-			this.grades = grades;
-			this.feedback = feedback;
-		}
+	@Column(name = "instructor_mobile")
+	private String mobileNo;
 
-		public int getInstructorId() {
-			return instructorId;
-		}
+	@Column(name = "instructor_salary")
+	private double salary;
 
-		public void setInstructorId(int instructorId) {
-			this.instructorId = instructorId;
-		}
+	@Column(name = "grades_given")
+	private int grades;
 
-		public String getName() {
-			return name;
-		}
+	@OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
+	private Set<Feedback> feedbacks = new HashSet<>();// Initialization required to avoid NullPointerException
+	private Feedback feedback;
 
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
-
-		public String getMobileNo() {
-			return mobileNo;
-		}
-
-		public void setMobileNo(String mobileNo) {
-			this.mobileNo = mobileNo;
-		}
-
-		public double getSalary() {
-			return salary;
-		}
-
-		public void setSalary(double salary) {
-			this.salary = salary;
-		}
-
-		public int getGrades() {
-			return grades;
-		}
-
-		public void setGrades(int grades) {
-			this.grades = grades;
-		}
-
-		public Feedback getFeedback() {
-			return feedback;
-		}
-
-		public void setFeedback(Feedback feedback) {
-			this.feedback = feedback;
-		}
-
-		@Override
-		public String toString() {
-			return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
-					+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedback=" + feedback + "]";
-		}
-		
-		
-		
-		
-		
+	public Instructor() {
 
 	}
 
+	public Instructor(int instructorId, String name, String email, String mobileNo, double salary, int grades,
+			Set<Feedback> feedbacks, Feedback feedback) {
+		super();
+		this.instructorId = instructorId;
+		this.name = name;
+		this.email = email;
+		this.mobileNo = mobileNo;
+		this.salary = salary;
+		this.grades = grades;
+		this.feedbacks = feedbacks;
+		this.feedback = feedback;
+	}
 
+	public int getInstructorId() {
+		return instructorId;
+	}
 
+	public void setInstructorId(int instructorId) {
+		this.instructorId = instructorId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	public int getGrades() {
+		return grades;
+	}
+
+	public void setGrades(int grades) {
+		this.grades = grades;
+	}
+
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+	public Feedback getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(Feedback feedback) {
+		this.feedback = feedback;
+	}
+
+	@Override
+	public String toString() {
+		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
+				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + ", feedback="
+				+ feedback + "]";
+	}
+
+}

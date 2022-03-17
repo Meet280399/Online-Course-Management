@@ -16,81 +16,79 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Course")
-public class Course
-{
-@Id
-@GeneratedValue
-@Column(name= "course_Id")
-private int courseId;
-private String courseName;
-private int courseDuration;
+@Table(name = "Course")
+public class Course {
+	@Id
+	@GeneratedValue
+	@Column(name = "course_Id")
+	private int courseId;
+	private String courseName;
+	private int courseDuration;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Course_Subject", joinColumns = { @JoinColumn(name = "course_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "subject_id") })
+	private Set<Subject> subjects = new HashSet<>();
 
- @ManyToMany(cascade = CascadeType.ALL)
-@JoinTable(name = "Course_Subject", joinColumns = { @JoinColumn(name = "course_id") }, inverseJoinColumns = { @JoinColumn(name = "subject_id") })
-private Set<Subject> subjects = new HashSet<>();
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	private Set<Project> projects = new HashSet<>();
 
- @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
- private Set<Project> projects = new HashSet<>();
- 
- public Course() {
-}
+	public Course() {
+	}
 
-public Course(int courseId, String courseName, int courseDuration, Set<Subject> subjects, Set<Project> projects) {
-	super();
-	this.courseId = courseId;
-	this.courseName = courseName;
-	this.courseDuration = courseDuration;
-	this.subjects = subjects;
-	this.projects = projects;
-}
+	public Course(int courseId, String courseName, int courseDuration, Set<Subject> subjects, Set<Project> projects) {
+		super();
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.courseDuration = courseDuration;
+		this.subjects = subjects;
+		this.projects = projects;
+	}
 
-public int getCourseId() {
-	return courseId;
-}
+	public int getCourseId() {
+		return courseId;
+	}
 
-public void setCourseId(int courseId) {
-	this.courseId = courseId;
-}
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
 
-public String getCourseName() {
-	return courseName;
-}
+	public String getCourseName() {
+		return courseName;
+	}
 
-public void setCourseName(String courseName) {
-	this.courseName = courseName;
-}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 
-public int getCourseDuration() {
-	return courseDuration;
-}
+	public int getCourseDuration() {
+		return courseDuration;
+	}
 
-public void setCourseDuration(int courseDuration) {
-	this.courseDuration = courseDuration;
-}
+	public void setCourseDuration(int courseDuration) {
+		this.courseDuration = courseDuration;
+	}
 
-public Set<Subject> getSubjects() {
-	return subjects;
-}
+	public Set<Subject> getSubjects() {
+		return subjects;
+	}
 
-public void setSubjects(Set<Subject> subjects) {
-	this.subjects = subjects;
-}
+	public void setSubjects(Set<Subject> subjects) {
+		this.subjects = subjects;
+	}
 
-public Set<Project> getProjects() {
-	return projects;
-}
+	public Set<Project> getProjects() {
+		return projects;
+	}
 
-public void setProjects(Set<Project> projects) {
-	this.projects = projects;
-}
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
+	}
 
-@Override
-public String toString() {
-	return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
-			+ ", subjects=" + subjects + ", projects=" + projects + "]";
-}
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
+				+ ", subjects=" + subjects + ", projects=" + projects + "]";
+	}
 
- 
 }

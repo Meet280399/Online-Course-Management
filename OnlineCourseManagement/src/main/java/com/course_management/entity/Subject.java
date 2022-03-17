@@ -15,65 +15,54 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Subject")
+@Table(name = "Subject")
 public class Subject {
 
- @Id
-@GeneratedValue
-@Column(name= "subject_Id")
-private int SubjectId;
-private String SubjectName;
+	@Id
+	@GeneratedValue
+	@Column(name = "subject_Id")
+	private int SubjectId;
+	private String SubjectName;
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "Subjects")
+	private Set<Course> courses = new HashSet<>();
 
-@ManyToMany(fetch=FetchType.LAZY,mappedBy ="Subjects")
-private Set<Course> courses = new HashSet<>();
+	public Subject() {
+	}
 
+	public Subject(int subjectId, String subjectName, Set<Course> courses) {
+		SubjectId = subjectId;
+		SubjectName = subjectName;
+		this.courses = courses;
+	}
 
- public Subject() {
-}
+	public int getSubjectId() {
+		return SubjectId;
+	}
 
+	public void setSubjectId(int subjectId) {
+		SubjectId = subjectId;
+	}
 
- public Subject(int subjectId, String subjectName, Set<Course> courses) {
-SubjectId = subjectId;
-SubjectName = subjectName;
-this.courses = courses;
-}
+	public String getSubjectName() {
+		return SubjectName;
+	}
 
+	public void setSubjectName(String subjectName) {
+		SubjectName = subjectName;
+	}
 
- public int getSubjectId() {
-return SubjectId;
-}
+	public Set<Course> getCourses() {
+		return courses;
+	}
 
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 
- public void setSubjectId(int subjectId) {
-SubjectId = subjectId;
-}
-
-
- public String getSubjectName() {
-return SubjectName;
-}
-
-
- public void setSubjectName(String subjectName) {
-SubjectName = subjectName;
-}
-
-
- public Set<Course> getCourses() {
-return courses;
-}
-
-
- public void setCourses(Set<Course> courses) {
-this.courses = courses;
-}
-
-
- @Override
-public String toString() {
-return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + ", courses=" + courses + "]";
-}
-
+	@Override
+	public String toString() {
+		return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + ", courses=" + courses + "]";
+	}
 
 }

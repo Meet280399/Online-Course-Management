@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +55,29 @@ public class StudentController {
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
 
 	}
-
-
+	@PostMapping("/Save-Student")
+	public ResponseEntity<Student> saveStudent(@RequestBody Student student)
+	{
+		
+		Student students= studentService.saveStudent(student);
+		if(students==null)
+		{
+			return new ResponseEntity("Sorry! Instructor not present!", HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Student>(students, HttpStatus.OK);
+	
+	}
+	
+	@PutMapping("/Update-Student")
+	public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student){
+		
+		List<Student> studentList= studentService.updateStudent(student);
+		if(studentList.isEmpty())
+		{
+			return new ResponseEntity("Sorry! Student not Present!", HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
+	}
 }

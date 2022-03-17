@@ -33,11 +33,11 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> saveStudent(Student student) {
+	public Student saveStudent(Student student) {
 		
         studentRepo.saveAndFlush(student);
 		
-		return studentRepo.findAll();
+		return studentRepo.save(student);
 	}
 
 	@Override

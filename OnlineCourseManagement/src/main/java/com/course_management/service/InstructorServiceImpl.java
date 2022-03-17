@@ -28,11 +28,11 @@ public class InstructorServiceImpl implements InstructorService {
 	}
 
 	@Override
-	public List<Instructor> saveInstructor(Instructor instructor) {
+	public Instructor saveInstructor(Instructor instructor) {
 	
 		instructorRepo.saveAndFlush(instructor);
 		
-		return instructorRepo.findAll();
+		return instructorRepo.save(instructor);
 	}
 
 	@Override

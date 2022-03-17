@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,4 +56,32 @@ public class InstructorController {
 
 	}
 
+	@PostMapping("/Save-Instructor")
+	public ResponseEntity<Instructor> saveInstructor(@RequestBody Instructor instructor)
+	{
+		
+		Instructor instructors= instructorService.saveInstructor(instructor);
+		if(instructors==null)
+		{
+			return new ResponseEntity("Sorry! Instructor not present!", HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Instructor>(instructors, HttpStatus.OK);
+	
+	}
+	
+	@PutMapping("/Update-Instructor")
+	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor){
+		
+		List<Instructor> instructorList= instructorService.updateInstructor(instructor);
+		if(instructorList.isEmpty())
+		{
+			return new ResponseEntity("Sorry! Instructor not Present!", HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
+	}
+	
+	
+	
 }

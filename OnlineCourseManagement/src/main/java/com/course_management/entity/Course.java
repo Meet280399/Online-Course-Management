@@ -3,6 +3,8 @@ package com.course_management.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +37,7 @@ public class Course {
 	private Set<Project> projects = new HashSet<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "student_id")
+	@JoinColumn(name = "studentId")
 	private Student student;
 
 	public Course() {

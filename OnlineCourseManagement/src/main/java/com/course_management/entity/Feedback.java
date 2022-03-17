@@ -19,7 +19,7 @@ public class Feedback {
 	private LocalDate feedbackDate;
 
 	@ManyToOne
-	@JoinColumn(name = "instructor_id")
+	@JoinColumn(name = "instructorId")
 	private Instructor instructor;
 
 	public Feedback() {

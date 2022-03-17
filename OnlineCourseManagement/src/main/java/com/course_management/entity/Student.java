@@ -3,8 +3,11 @@ package com.course_management.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -23,8 +26,8 @@ public class Student {
 	private String studentAddress;
 	private long studentMobile;
 	
-	
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+	@ElementCollection
 	private Set<Course> courses = new HashSet<>();
 	private Course course;
 	

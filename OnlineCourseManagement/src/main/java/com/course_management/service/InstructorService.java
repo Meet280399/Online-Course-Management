@@ -10,7 +10,7 @@ import com.course_management.entity.Instructor;
 public interface InstructorService {
 	public List<Instructor> getallInstructors();
 	public List<Instructor> deleteInstructor(Integer instructorId);
-	public List<Instructor> saveInstructor(Instructor instructor);
+	public Instructor saveInstructor(Instructor instructor);
 	public List<Instructor> updateInstructor(Instructor instructor);
 	public Instructor findInstructor(Integer instructorId);
 

@@ -2,10 +2,18 @@ package com.course_management.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="feedback")
 public class Feedback {
+	@Id
+	@Column(name ="feedback_id")
 	private int feedbackId;
 	private String description;
 	private LocalDate feedbackDate;

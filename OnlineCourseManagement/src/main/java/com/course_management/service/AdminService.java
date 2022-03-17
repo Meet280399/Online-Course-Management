@@ -29,6 +29,7 @@ public List<Student> deleteStudent(Integer studentId);
 public List<Student> saveStudent(Student student);
 public List<Student> updateStudent(Student student);
 public Student findStudent(Integer studentId);
+
 //Administrator has managing the Instructor
 public List<Instructor> getallInstructors();
 public List<Instructor> deleteInstructor(Integer instructorId);
@@ -36,6 +37,7 @@ public List<Instructor> saveInstructor(Instructor instructor);
 public List<Instructor> updateInstructor(Instructor instructor);
 public Instructor findInstructor(Integer instructorId);
 //Administrator dealing the Salary of Instructor
+
 public List<Instructor> setsalaryToInstructor(double instructorSalary);
 public List<Instructor> getallSalaryOfInstructor(double instructorSalary);
 public List<Instructor> deleteSalaryOfInstructor(double instructorSalary);

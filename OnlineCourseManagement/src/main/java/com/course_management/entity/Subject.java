@@ -25,7 +25,7 @@ public class Subject {
 	private int SubjectId;
 	private String SubjectName;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "Subjects")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
 	private Set<Course> courses = new HashSet<>();
 
 	public Subject() {

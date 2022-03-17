@@ -26,7 +26,7 @@ public class Project {
 	private String projectDifficultyLevel;
 
 	@ManyToOne
-	@JoinColumn(name = "course_id")
+	@JoinColumn(name = "courseId")
 	private Course course;
 
 	public Project() {

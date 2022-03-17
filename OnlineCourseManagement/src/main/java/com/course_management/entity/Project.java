@@ -16,21 +16,21 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ManyToAny;
 
 @Entity
-@Table(name="project")
+@Table(name = "project")
 public class Project {
 	@Id
 	@GeneratedValue
-	@Column(name="project_Id")
+	@Column(name = "project_Id")
 	private int projectId;
 	private String projectName;
 	private String projectDifficultyLevel;
-	
+
 	@ManyToOne
-	@JoinColumn(name="course_id")
+	@JoinColumn(name = "course_id")
 	private Course course;
-	
+
 	public Project() {
-		
+
 	}
 
 	public Project(int projectId, String projectName, String projectDifficultyLevel, Course course) {
@@ -78,5 +78,5 @@ public class Project {
 		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectDifficultyLevel="
 				+ projectDifficultyLevel + ", course=" + course + "]";
 	}
-	
+
 }

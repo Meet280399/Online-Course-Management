@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.course_management.entity.Instructor;
 import com.course_management.entity.Student;
+import com.course_management.entity.Subject;
 
 
 
@@ -44,6 +45,20 @@ public List<Instructor> deleteSalaryOfInstructor(double instructorSalary);
 public List<Instructor> updatesalaryofInstructor(double instructorSalary);
 public List<Instructor> savesalaryofInstructor(double instructorSalary);
 public List<Instructor> saveAll();
+
+
+//Administrator managing the Subjects
+public List<Subject>getallSubjects();
+public Subject saveSubject(Subject subject);
+public List<Subject>updateSubject(Subject subject);
+public List<Subject>deleteSubject(Integer SubjectId);
+public Subject findSubject(Integer SubjectId);
+
+
+
+
+
+
 
 public double instructorPracticalHours();
 

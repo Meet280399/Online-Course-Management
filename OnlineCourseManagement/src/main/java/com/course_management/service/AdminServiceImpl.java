@@ -1,13 +1,21 @@
 package com.course_management.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.course_management.dao.InstructorRepository;
+import com.course_management.dao.SubjectRepository;
 import com.course_management.entity.Instructor;
 import com.course_management.entity.Student;
+import com.course_management.entity.Subject;
 
 public class AdminServiceImpl implements AdminService {
+	
+	@Autowired
+	private SubjectRepository subjectRepo;
+
 	
 
 	@Override
@@ -110,6 +118,41 @@ public class AdminServiceImpl implements AdminService {
 	public double instructorPracticalHours() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Subject> getallSubjects() {
+		
+		return subjectRepo.findAll();
+	}
+
+	@Override
+	public Subject saveSubject(Subject subject) {
+     subjectRepo.saveAndFlush(subject);
+		
+		return subjectRepo.save(subject);
+	}
+
+	@Override
+	public List<Subject> updateSubject(Subject subject) {
+      subjectRepo.saveAndFlush(subject);
+		
+		return subjectRepo.findAll();
+	}
+
+	@Override
+	public List<Subject> deleteSubject(Integer SubjectId) {
+		subjectRepo.deleteById(SubjectId);
+
+		return subjectRepo.findAll();
+		
+	}
+
+	@Override
+	public Subject findSubject(Integer SubjectId) {
+		Optional<Subject> subjectCollect = subjectRepo.findById(SubjectId);
+		 
+		return subjectCollect.get();
 	} 
 
 }

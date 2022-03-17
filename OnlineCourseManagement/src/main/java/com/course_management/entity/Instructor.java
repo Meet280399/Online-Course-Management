@@ -10,7 +10,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = "instructor")
@@ -38,13 +40,19 @@ public class Instructor {
 	@OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
 	private Set<Feedback> feedbacks = new HashSet<>();// Initialization required to avoid NullPointerException
 	private Feedback feedback;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="course_id")
+	private Course course;
+	
+	
 
 	public Instructor() {
 
 	}
 
 	public Instructor(int instructorId, String name, String email, String mobileNo, double salary, int grades,
-			Set<Feedback> feedbacks, Feedback feedback) {
+			Set<Feedback> feedbacks, Feedback feedback,Course course) {
 		super();
 		this.instructorId = instructorId;
 		this.name = name;
@@ -54,6 +62,7 @@ public class Instructor {
 		this.grades = grades;
 		this.feedbacks = feedbacks;
 		this.feedback = feedback;
+		this.course=course;
 	}
 
 	public int getInstructorId() {
@@ -118,6 +127,15 @@ public class Instructor {
 
 	public void setFeedback(Feedback feedback) {
 		this.feedback = feedback;
+	}
+	
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	@Override

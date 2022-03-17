@@ -1,16 +1,22 @@
 package com.course_management.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.course_management.dao.CourseRepository;
+import com.course_management.entity.Course;
 import com.course_management.entity.Instructor;
 import com.course_management.entity.Student;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	
+	// connecting the service implementation with the course repository
+	@Autowired
+	private CourseRepository courseRepo;
 
 	@Override
 	public List<Student> getallStudents() {
@@ -72,46 +78,39 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
+	//method implementing to get all the courses 
 	@Override
-	public List<Instructor> setsalaryToInstructor(double instructorSalary) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> getAllCourse() {
+		return courseRepo.findAll();
 	}
 
+	//method implementing to delete course with particular Id
 	@Override
-	public List<Instructor> getallSalaryOfInstructor(double instructorSalary) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> deleteCourse(Integer courseId) {
+		courseRepo.deleteById(courseId);
+		return courseRepo.findAll();
 	}
 
+	//method implementing to save course
 	@Override
-	public List<Instructor> deleteSalaryOfInstructor(double instructorSalary) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course saveCourse(Course course) {
+		courseRepo.saveAndFlush(course);
+		return courseRepo.save(course);
 	}
 
+	//method implementing to update particular courses
 	@Override
-	public List<Instructor> updatesalaryofInstructor(double instructorSalary) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> updateCourse(Course course) {
+		courseRepo.saveAndFlush(course);
+		return courseRepo.findAll();
 	}
 
+	//method implementing to find a course with it's Id
 	@Override
-	public List<Instructor> savesalaryofInstructor(double instructorSalary) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course findCourse(Integer courseId) {
+		Optional<Course> courses = courseRepo.findById(courseId);
+		return courses.get();
 	}
 
-	@Override
-	public List<Instructor> saveAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public double instructorPracticalHours() {
-		// TODO Auto-generated method stub
-		return 0;
-	} 
 
 }

@@ -16,7 +16,7 @@ public class InstructorServiceImpl implements InstructorService {
 	private InstructorRepository instructorRepo;
 
 	@Override
-	public List<Instructor> getallInstructors() {
+	public List<Instructor> getAllInstructors() {
 
 		return instructorRepo.findAll();
 	}

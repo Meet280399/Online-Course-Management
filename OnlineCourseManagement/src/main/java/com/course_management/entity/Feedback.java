@@ -3,11 +3,17 @@ package com.course_management.entity;
 
 	import java.time.LocalDate;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 	public class Feedback {
 		private int feedbackId;
 		private String description;
 		private LocalDate feedbackDate;
 		
+		@ManyToOne
+		@JoinColumn(name="instructor_id")
+		private Instructor instructor;
 		
 		
 		

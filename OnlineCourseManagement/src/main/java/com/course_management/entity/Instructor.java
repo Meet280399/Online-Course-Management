@@ -1,9 +1,15 @@
 package com.course_management.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 
@@ -31,7 +37,9 @@ import javax.persistence.Id;
 		@Column(name="grades_given")
 		private int grades;
 		
-		Feedback feedback;
+		@OneToMany(mappedBy="instructor",cascade=CascadeType.ALL)
+		private Set<Feedback> feedbacks = new HashSet<>();//Initialization required to avoid NullPointerException
+		private Feedback feedback;
 		
 		public Instructor() {
 			

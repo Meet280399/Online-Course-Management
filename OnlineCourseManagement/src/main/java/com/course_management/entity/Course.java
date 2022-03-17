@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,17 +33,22 @@ public class Course {
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private Set<Project> projects = new HashSet<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "student_id")
+	private Student student;
 
 	public Course() {
 	}
 
-	public Course(int courseId, String courseName, int courseDuration, Set<Subject> subjects, Set<Project> projects) {
+	public Course(int courseId, String courseName, int courseDuration, Set<Subject> subjects, Set<Project> projects, Student student) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.courseDuration = courseDuration;
 		this.subjects = subjects;
 		this.projects = projects;
+		this.student = student;
 	}
 
 	public int getCourseId() {
@@ -83,6 +89,16 @@ public class Course {
 
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
+	}
+	
+	
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	@Override

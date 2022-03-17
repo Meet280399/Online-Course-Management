@@ -1,8 +1,13 @@
 package com.course_management.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Student {
@@ -15,14 +20,20 @@ public class Student {
 	private String studentEmail;
 	private String studentAddress;
 	private long studentMobile;
+	
+	
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+	private Set<Course> courses = new HashSet<>();
+	private Course course;
+	
+	
 
 	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Student(int studentId, String firstName, String lastName, String studentEmail, String studentAddress,
-			long studentMobile) {
+			long studentMobile, Set<Course> courses, Course course) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
@@ -30,6 +41,8 @@ public class Student {
 		this.studentEmail = studentEmail;
 		this.studentAddress = studentAddress;
 		this.studentMobile = studentMobile;
+		this.courses = courses;
+		this.course = course;
 	}
 
 	public int getStudentId() {
@@ -78,6 +91,23 @@ public class Student {
 
 	public void setStudentMobile(long studentMobile) {
 		this.studentMobile = studentMobile;
+	}
+
+	
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	@Override

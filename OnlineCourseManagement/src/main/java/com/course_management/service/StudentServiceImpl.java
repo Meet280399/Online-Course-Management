@@ -10,6 +10,8 @@ import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.StudentRepository;
 import com.course_management.entity.Instructor;
 import com.course_management.entity.Student;
+import com.course_management.exception.DuplicateStudentException;
+import com.course_management.exception.StudentNotFoundException;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -22,26 +24,26 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> deleteStudent(Integer studentId) {
+	public List<Student> deleteStudent(Integer studentId) throws StudentNotFoundException{
 		studentRepo.deleteById(studentId);
 		return studentRepo.findAll();
 
 	}
 
 	@Override
-	public Student saveStudent(Student student) {
+	public Student saveStudent(Student student) throws DuplicateStudentException {
 		studentRepo.saveAndFlush(student);
 		return studentRepo.save(student);
 	}
 
 	@Override
-	public List<Student> updateStudent(Student student) {
+	public List<Student> updateStudent(Student student) throws StudentNotFoundException{
 		studentRepo.saveAndFlush(student);
 		return studentRepo.findAll();
 	}
 
 	@Override
-	public Student findStudent(Integer studentId) {
+	public Student findStudent(Integer studentId) throws StudentNotFoundException{
 		Optional<Student> studentCollect = studentRepo.findById(studentId);
 		return studentCollect.get();
 	}

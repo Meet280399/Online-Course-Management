@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.course_management.entity.Instructor;
 import com.course_management.entity.Student;
+import com.course_management.exception.DuplicateStudentException;
+import com.course_management.exception.StudentNotFoundException;
 import com.course_management.service.InstructorService;
 import com.course_management.service.StudentService;
 
@@ -40,7 +42,7 @@ public class StudentController {
 
 	}
 	@GetMapping("/Student/{studentId}")
-	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId) {
+	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId) throws StudentNotFoundException {
 
 		Student student = studentService.findStudent(studentId);
 
@@ -49,14 +51,14 @@ public class StudentController {
 	}
 
 	@DeleteMapping("/Delete-Student/{studentId}")
-	public ResponseEntity<List<Student>> deleteStudent(@PathVariable("studentId") Integer studentId) {
+	public ResponseEntity<List<Student>> deleteStudent(@PathVariable("studentId") Integer studentId) throws StudentNotFoundException {
 		List<Student> studentList = studentService.deleteStudent(studentId);
 
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
 
 	}
 	@PostMapping("/Save-Student")
-	public ResponseEntity<Student> saveStudent(@RequestBody Student student)
+	public ResponseEntity<Student> saveStudent(@RequestBody Student student) throws DuplicateStudentException
 	{
 		
 		Student students= studentService.saveStudent(student);
@@ -70,7 +72,7 @@ public class StudentController {
 	}
 	
 	@PutMapping("/Update-Student")
-	public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student){
+	public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student) throws StudentNotFoundException{
 		
 		List<Student> studentList= studentService.updateStudent(student);
 		if(studentList.isEmpty())

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.course_management.entity.Instructor;
-import com.course_management.entity.Student;
 import com.course_management.exception.DuplicateStudentException;
 import com.course_management.exception.StudentNotFoundException;
+import com.course_management.model.Instructor;
+import com.course_management.model.Student;
 import com.course_management.service.InstructorService;
 import com.course_management.service.StudentService;
 
@@ -28,16 +28,15 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
-	//URL :- http://localhost:8090/OnlineCourseManagement/All-Student
+	//URL :- http://localhost:8090/OnlineCourseManagement/Student-Details/All-Student
 	
 	@GetMapping("/All-Student")
 	public ResponseEntity<List<Student>> getAllStudents() {
 		List<Student> studentList = studentService.getallIStudents();
 
 		if (studentList.isEmpty()) {
-			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity("Sorry no Student found!", HttpStatus.NOT_FOUND);
 		}
-
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
 
 	}

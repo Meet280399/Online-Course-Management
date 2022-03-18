@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.course_management.entity.Course;
-import com.course_management.entity.Feedback;
-import com.course_management.entity.Instructor;
 import com.course_management.exception.DuplicateCourseException;
 import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.NoSuchCourseException;
 import com.course_management.exception.NoSuchFeedbackException;
+import com.course_management.model.Course;
+import com.course_management.model.Feedback;
+import com.course_management.model.Instructor;
 import com.course_management.service.AdminService;
 import com.course_management.service.InstructorService;
 
@@ -91,6 +91,7 @@ public class InstructorController {
 	// ------------- Controller for the requests related to the course------------------------
 
 	// requests the controller to get the list of course
+	//URL:- http://localhost:8090/OnlineCourseManagement/Instructor-Details/Course-List
 	@GetMapping("/Course-List")
 	public ResponseEntity<List<Course>> getAllCourse() {
 		List<Course> courseList = adminService.getAllCourse();

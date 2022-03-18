@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.SubjectRepository;
 import com.course_management.dao.CourseRepository;
-import com.course_management.entity.Course;
-import com.course_management.entity.Instructor;
-import com.course_management.entity.Student;
-import com.course_management.entity.Subject;
 import com.course_management.exception.DuplicateCourseException;
 import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.DuplicateStudentException;
 import com.course_management.exception.NoSuchCourseException;
 import com.course_management.exception.StudentNotFoundException;
 import com.course_management.exception.SubjectNotFoundException;
+import com.course_management.model.Course;
+import com.course_management.model.Instructor;
+import com.course_management.model.Student;
+import com.course_management.model.Subject;
 
 @Service
 public class AdminServiceImpl implements AdminService {

@@ -1,4 +1,4 @@
-package com.course_management.entity;
+package com.course_management.model;
 
 import java.util.HashSet;
 import java.util.Set;

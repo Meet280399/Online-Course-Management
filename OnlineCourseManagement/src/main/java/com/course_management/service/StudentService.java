@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.course_management.entity.Student;
 import com.course_management.exception.DuplicateStudentException;
 import com.course_management.exception.StudentNotFoundException;
+import com.course_management.model.Student;
 
 @Service
 public interface StudentService {

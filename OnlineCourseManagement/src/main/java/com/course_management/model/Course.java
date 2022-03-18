@@ -1,4 +1,4 @@
-package com.course_management.entity;
+package com.course_management.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +27,7 @@ public class Course {
 	@Column(name = "course_Id")
 	private int courseId;
 	private String courseName;
-	private int courseDuration;
+	private String courseDuration;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "Course_Subject", joinColumns = { @JoinColumn(name = "course_id") }, inverseJoinColumns = {
@@ -44,7 +44,7 @@ public class Course {
 	public Course() {
 	}
 
-	public Course(int courseId, String courseName, int courseDuration, Set<Subject> subjects, Set<Project> projects, Student student) {
+	public Course(int courseId, String courseName, String courseDuration, Set<Subject> subjects, Set<Project> projects, Student student) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -70,11 +70,11 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public int getCourseDuration() {
+	public String getCourseDuration() {
 		return courseDuration;
 	}
 
-	public void setCourseDuration(int courseDuration) {
+	public void setCourseDuration(String courseDuration) {
 		this.courseDuration = courseDuration;
 	}
 

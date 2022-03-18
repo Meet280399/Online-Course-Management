@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.course_management.dao.FeedbackRepository;
 import com.course_management.dao.InstructorRepository;
-import com.course_management.entity.Feedback;
-import com.course_management.entity.Instructor;
 import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.NoSuchFeedbackException;
+import com.course_management.model.Feedback;
+import com.course_management.model.Instructor;
 
 @Service
 public class InstructorServiceImpl implements InstructorService {

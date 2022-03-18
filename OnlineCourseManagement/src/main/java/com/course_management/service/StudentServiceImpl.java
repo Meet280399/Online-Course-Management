@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.StudentRepository;
-import com.course_management.entity.Instructor;
-import com.course_management.entity.Student;
 import com.course_management.exception.DuplicateStudentException;
 import com.course_management.exception.StudentNotFoundException;
+import com.course_management.model.Instructor;
+import com.course_management.model.Student;
 
 @Service
 public class StudentServiceImpl implements StudentService {

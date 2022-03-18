@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.course_management.entity.Course;
 import com.course_management.entity.Feedback;
 import com.course_management.entity.Instructor;
+import com.course_management.exception.DuplicateInstructorException;
+import com.course_management.exception.InstructorNotFoundException;
+import com.course_management.exception.NoSuchFeedbackException;
 import com.course_management.service.AdminService;
 import com.course_management.service.InstructorService;
 
@@ -45,7 +48,7 @@ public class InstructorController {
 
 	// request the controller to get the instructor with Id mentioned
 	@GetMapping("/Instructor/{instructorId}")
-	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId) {
+	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId) throws InstructorNotFoundException {
 		Instructor instructor = instructorService.findInstructor(instructorId);
 		if (instructor == null) {
 			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
@@ -55,7 +58,7 @@ public class InstructorController {
 
 	// request controller to delete the instructor with the Id mentioned
 	@DeleteMapping("/Delete-Instructor/{instructorId}")
-	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId) {
+	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId) throws InstructorNotFoundException {
 		List<Instructor> instructorList = instructorService.deleteInstructor(instructorId);
 		if (instructorList.isEmpty() || instructorList == null) {
 			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
@@ -65,7 +68,7 @@ public class InstructorController {
 
 	// request controller to save the instructor entered by user
 	@PostMapping("/Save-Instructor")
-	public ResponseEntity<Instructor> saveInstructor(@RequestBody Instructor instructor) {
+	public ResponseEntity<Instructor> saveInstructor(@RequestBody Instructor instructor) throws DuplicateInstructorException {
 		Instructor instructors = instructorService.saveInstructor(instructor);
 		if (instructors == null) {
 			return new ResponseEntity("Sorry! Instructor not present!", HttpStatus.NOT_FOUND);
@@ -75,7 +78,7 @@ public class InstructorController {
 
 	// request controller to update the instructor as mentioned by user
 	@PutMapping("/Update-Instructor")
-	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor) {
+	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor) throws InstructorNotFoundException {
 		List<Instructor> instructorList = instructorService.updateInstructor(instructor);
 		if (instructorList.isEmpty()) {
 			return new ResponseEntity("Sorry! Instructor not Present!", HttpStatus.NOT_FOUND);
@@ -148,7 +151,7 @@ public class InstructorController {
 
 	// request controller to delete the feedback with the Id mentioned by Instructor
 	@DeleteMapping("/Delete-Feedback/{feedbackId}")
-	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId) {
+	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId) throws NoSuchFeedbackException {
 		List<Feedback> feedbackList = instructorService.deleteFeedback(feedbackId);
 		if (feedbackList.isEmpty() || feedbackList == null) {
 			return new ResponseEntity("Sorry no Feedback found!", HttpStatus.NOT_FOUND);
@@ -168,7 +171,7 @@ public class InstructorController {
 
 	// request controller to update the feedback by Instructor
 	@PutMapping("/Update-Feedback")
-	public ResponseEntity<List<Feedback>> updateFeedback(@RequestBody Feedback feedback) {
+	public ResponseEntity<List<Feedback>> updateFeedback(@RequestBody Feedback feedback) throws NoSuchFeedbackException {
 		List<Feedback> feedbackList = instructorService.updateFeedback(feedback);
 		if (feedbackList.isEmpty()) {
 			return new ResponseEntity("Sorry! Feedback not found!", HttpStatus.NOT_FOUND);
@@ -178,7 +181,7 @@ public class InstructorController {
 
 	// request controller to find feedback with Id mentioned by Instructor
 	@GetMapping("/Feedback/{feedbackId}")
-	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedbackId") Integer feedbackId) {
+	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedbackId") Integer feedbackId) throws NoSuchFeedbackException {
 		Feedback feedbacks = instructorService.findFeedback(feedbackId);
 		if (feedbacks == null) {
 			return new ResponseEntity("Sorry no feedback found!", HttpStatus.NOT_FOUND);

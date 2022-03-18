@@ -6,13 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.SubjectRepository;
-=======
 import com.course_management.dao.CourseRepository;
 import com.course_management.entity.Course;
->>>>>>> branch 'main' of https://github.com/Meet280399/Online-Course-Management
 import com.course_management.entity.Instructor;
 import com.course_management.entity.Student;
 import com.course_management.entity.Subject;
@@ -20,16 +17,12 @@ import com.course_management.entity.Subject;
 @Service
 public class AdminServiceImpl implements AdminService {
 	
-<<<<<<< HEAD
 	@Autowired
 	private SubjectRepository subjectRepo;
-
 	
-=======
 	// connecting the service implementation with the course repository
 	@Autowired
 	private CourseRepository courseRepo;
->>>>>>> branch 'main' of https://github.com/Meet280399/Online-Course-Management
 
 	@Override
 	public List<Student> getallStudents() {
@@ -125,12 +118,6 @@ public class AdminServiceImpl implements AdminService {
 		return courses.get();
 	}
 
-<<<<<<< HEAD
-	@Override
-	public List<Instructor> saveAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public double instructorPracticalHours() {
@@ -172,7 +159,6 @@ public class AdminServiceImpl implements AdminService {
 		 
 		return subjectCollect.get();
 	} 
-=======
->>>>>>> branch 'main' of https://github.com/Meet280399/Online-Course-Management
+
 
 }

@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.course_management.entity.Course;
 import com.course_management.entity.Feedback;
 import com.course_management.entity.Instructor;
+import com.course_management.exception.DuplicateCourseException;
 import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.InstructorNotFoundException;
+import com.course_management.exception.NoSuchCourseException;
 import com.course_management.exception.NoSuchFeedbackException;
 import com.course_management.service.AdminService;
 import com.course_management.service.InstructorService;
@@ -100,7 +102,7 @@ public class InstructorController {
 
 	// request the controller to get the Course with Id mentioned
 	@GetMapping("/Course/{courseId}")
-	public ResponseEntity<Course> findCourseById(@PathVariable("courseId") Integer courseId) {
+	public ResponseEntity<Course> findCourseById(@PathVariable("courseId") Integer courseId) throws NoSuchCourseException {
 		Course course = adminService.findCourse(courseId);
 		if (course == null) {
 			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
@@ -110,7 +112,7 @@ public class InstructorController {
 
 	// request controller to delete the Course with the Id mentioned
 	@DeleteMapping("/Delete-Course/{courseId}")
-	public ResponseEntity<List<Course>> deleteCourse(@PathVariable("courseId") Integer courseId) {
+	public ResponseEntity<List<Course>> deleteCourse(@PathVariable("courseId") Integer courseId) throws NoSuchCourseException {
 		List<Course> courseList = adminService.deleteCourse(courseId);
 		if (courseList.isEmpty() || courseList == null) {
 			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
@@ -120,7 +122,7 @@ public class InstructorController {
 
 	// request controller to save the Course entered by user
 	@PostMapping("/Save-Course")
-	public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
+	public ResponseEntity<Course> saveCourse(@RequestBody Course course) throws DuplicateCourseException {
 		Course courses = adminService.saveCourse(course);
 		if (courses == null) {
 			return new ResponseEntity("Sorry! Course not present!", HttpStatus.NOT_FOUND);
@@ -130,7 +132,7 @@ public class InstructorController {
 
 	// request controller to update the Course as mentioned by user
 	@PutMapping("/Update-Course")
-	public ResponseEntity<List<Course>> updateCourse(@RequestBody Course course) {
+	public ResponseEntity<List<Course>> updateCourse(@RequestBody Course course) throws NoSuchCourseException {
 		List<Course> courseList = adminService.updateCourse(course);
 		if (courseList.isEmpty()) {
 			return new ResponseEntity("Sorry! Course not Present!", HttpStatus.NOT_FOUND);

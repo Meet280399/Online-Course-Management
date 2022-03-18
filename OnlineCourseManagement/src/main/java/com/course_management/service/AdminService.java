@@ -57,7 +57,7 @@ public interface AdminService {
 	public double instructorPracticalHours();
 	
 
-	// Administrator managing with the course entity to set curriculum
+// Administrator managing with the course entity to set curriculum
 	public List<Course> getAllCourse();
 	public List<Course> deleteCourse(Integer courseId) throws NoSuchCourseException;
 	public Course saveCourse(Course course) throws DuplicateCourseException;

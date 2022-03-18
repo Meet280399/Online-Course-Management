@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course_management.entity.Course;
+import com.course_management.entity.Feedback;
 import com.course_management.entity.Instructor;
 import com.course_management.service.AdminService;
 import com.course_management.service.InstructorService;
@@ -133,5 +134,65 @@ public class InstructorController {
 		}
 		return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
 	}
+	
+	
+	
+	
+	// requests the controller to get the list of Feedbacks
+	// http://localhost:8090/OnlineCourseManagement/Instructor-Details/FeedBack-List
+	@GetMapping("/FeedBack-List")
+	public ResponseEntity<List<Feedback>> getAllFeedbacks() {
+		List<Feedback> feedbackList = instructorService.getAllFeedbacks();
+		if (feedbackList.isEmpty()) {
+			return new ResponseEntity("Sorry no feedback found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+	}
+	
+	
+	// request controller to delete the feedback with the Id mentioned by Instructor
+	@DeleteMapping("/Delete-Feedback/{feedbackId}")
+	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId) {
+		List<Feedback> feedbackList = instructorService.deleteFeedback(feedbackId);
+		if (feedbackList.isEmpty() || feedbackList == null) {
+			return new ResponseEntity("Sorry no Feedback found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+	}
+	
+	// request controller to save the feedback by Instructor
+	
+	@PostMapping("/Save-Feedback")
+	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback) {
+		Feedback feedbacks = instructorService.saveFeedback(feedback);
+		if (feedbacks == null) {
+			return new ResponseEntity("Sorry! Feedback not found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Feedback>(feedbacks, HttpStatus.OK);
+	}
+	
+	// request controller to update the feedback by Instructor
+	
+	@PutMapping("/Update-Feedback")
+	public ResponseEntity<List<Feedback>> updateFeedback(@RequestBody Feedback feedback) {
+		List<Feedback> feedbackList = instructorService.updateFeedback(feedback);
+		if (feedbackList.isEmpty()) {
+			return new ResponseEntity("Sorry! Feedback not found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+	}
+	
+	// request controller to find feedback with Id mentioned by Instructor
+	
+	@GetMapping("/Feedback/{feedbackId}")
+	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedbackId") Integer feedbackId) {
+		Feedback feedbacks = instructorService.findFeedback(feedbackId);
+		if (feedbacks == null) {
+			return new ResponseEntity("Sorry no feedback found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Feedback>(feedbacks, HttpStatus.OK);
+	}
+	
+	
 
 }

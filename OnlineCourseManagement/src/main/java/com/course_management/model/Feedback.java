@@ -11,6 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * The Class Feedback is the Entity representing feedback table in database
+ * 
+ * @author Rahul Kumar
+ *
+ */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "feedback")
@@ -25,11 +32,21 @@ public class Feedback {
 	@JoinColumn(name = "instructorId")
 	private Instructor instructor;
 
+	/**
+	 * feedback default constructor
+	 */
 	public Feedback() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * feedback constructor with fields as parameters
+	 * 
+	 * @param feedbackId   the feedback Id
+	 * @param description  the description given for feedback
+	 * @param feedbackDate the date on which feedback was given
+	 * @param instructor   the feedback given by instructor
+	 */
 	public Feedback(int feedbackId, String description, LocalDate feedbackDate, Instructor instructor) {
 		super();
 		this.feedbackId = feedbackId;
@@ -38,10 +55,20 @@ public class Feedback {
 		this.instructor = instructor;
 	}
 
+	/**
+	 * gets the feedback Id
+	 * 
+	 * @return
+	 */
 	public int getFeedbackId() {
 		return feedbackId;
 	}
 
+	/**
+	 * setters for the feedback Id
+	 * 
+	 * @param feedbackId
+	 */
 	public void setFeedbackId(int feedbackId) {
 		this.feedbackId = feedbackId;
 	}

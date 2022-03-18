@@ -16,6 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+/**
+ * The Class Instructor is the Entity representing instructor table in database
+ * 
+ * @author Ashwini Mekala
+ *
+ */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "instructor")
@@ -37,7 +44,8 @@ public class Instructor {
 	@Column(name = "instructor_salary")
 	private double salary;
 
-	@Column(name = "grades_given")
+//	@Column(name = "grades_given")
+	@Column(name = "grade_given")
 	private int grades;
 
 	@OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
@@ -47,10 +55,25 @@ public class Instructor {
 	@JoinColumn(name = "course_id")
 	private Course course;
 
+	/**
+	 * instructor default constructor
+	 */
 	public Instructor() {
-
+		super();
 	}
 
+	/**
+	 * instructor constructor with fields as parameters
+	 * 
+	 * @param instructorId the instructor id
+	 * @param name         the name of the instructor
+	 * @param email        the email of the instructor
+	 * @param mobileNo     the mobile number of the instructor
+	 * @param salary       the salary of instructor
+	 * @param grades       the grades given by instructor
+	 * @param feedbacks    the feedbacks given by instructor
+	 * @param course       the course instructor is teaching
+	 */
 	public Instructor(int instructorId, String name, String email, String mobileNo, double salary, int grades,
 			Set<Feedback> feedbacks, Course course) {
 		super();
@@ -72,10 +95,20 @@ public class Instructor {
 		this.instructorId = instructorId;
 	}
 
+	/**
+	 * gets the instructor name
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * setters for the instructor name
+	 * 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

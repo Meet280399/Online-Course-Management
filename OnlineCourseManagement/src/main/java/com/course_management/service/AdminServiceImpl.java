@@ -14,6 +14,7 @@ import com.course_management.dao.CourseRepository;
 import com.course_management.exception.DuplicateCourseException;
 import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.DuplicateStudentException;
+import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.NoSuchCourseException;
 import com.course_management.exception.StudentNotFoundException;
 import com.course_management.exception.SubjectNotFoundException;
@@ -22,12 +23,17 @@ import com.course_management.model.Instructor;
 import com.course_management.model.Student;
 import com.course_management.model.Subject;
 
+/**
+ * Admin Service Implementation Class for implementing the methods of Admin Service
+ * @author Akshay Godwa and Akhil Inamdar
+ *
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
-	
+
 	@Autowired
 	private SubjectRepository subjectRepo;
-	
+
 	// connecting the service implementation with the course repository
 	@Autowired
 	private CourseRepository courseRepo;
@@ -44,6 +50,9 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
+	/**
+	 * method to save new student in database
+	 */
 	@Override
 	public List<Student> saveStudent(Student student) throws DuplicateStudentException {
 		// TODO Auto-generated method stub
@@ -69,63 +78,62 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Instructor> deleteInstructor(Integer instructorId) throws InstanceNotFoundException {
+	public List<Instructor> deleteInstructor(Integer instructorId) throws InstructorNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Instructor> saveInstructor(Instructor instructor) throws DuplicateInstructorException{
+	public List<Instructor> saveInstructor(Instructor instructor) throws DuplicateInstructorException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Instructor> updateInstructor(Instructor instructor) throws InstanceNotFoundException {
+	public List<Instructor> updateInstructor(Instructor instructor) throws InstructorNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Instructor findInstructor(Integer instructorId) throws InstanceNotFoundException {
+	public Instructor findInstructor(Integer instructorId) throws InstructorNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	//method implementing to get all the courses 
+	// method implementing to get all the courses
 	@Override
 	public List<Course> getAllCourse() {
 		return courseRepo.findAll();
 	}
 
-	//method implementing to delete course with particular Id
+	// method implementing to delete course with particular Id
 	@Override
 	public List<Course> deleteCourse(Integer courseId) throws NoSuchCourseException {
 		courseRepo.deleteById(courseId);
 		return courseRepo.findAll();
 	}
 
-	//method implementing to save course
+	// method implementing to save course
 	@Override
-	public Course saveCourse(Course course) throws DuplicateCourseException{
+	public Course saveCourse(Course course) throws DuplicateCourseException {
 		courseRepo.saveAndFlush(course);
 		return courseRepo.save(course);
 	}
 
-	//method implementing to update particular courses
+	// method implementing to update particular courses
 	@Override
 	public List<Course> updateCourse(Course course) throws NoSuchCourseException {
 		courseRepo.saveAndFlush(course);
 		return courseRepo.findAll();
 	}
 
-	//method implementing to find a course with it's Id
+	// method implementing to find a course with it's Id
 	@Override
 	public Course findCourse(Integer courseId) throws NoSuchCourseException {
 		Optional<Course> courses = courseRepo.findById(courseId);
 		return courses.get();
 	}
-
 
 	@Override
 	public double instructorPracticalHours() {
@@ -160,7 +168,6 @@ public class AdminServiceImpl implements AdminService {
 	public Subject findSubject(Integer SubjectId) throws SubjectNotFoundException {
 		Optional<Subject> subjectCollect = subjectRepo.findById(SubjectId);
 		return subjectCollect.get();
-	} 
-
+	}
 
 }

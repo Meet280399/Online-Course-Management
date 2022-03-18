@@ -13,6 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * The Class Student is the Entity representing student table in database
+ * 
+ * @author Akhil Inamdar
+ *
+ */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "student")
@@ -31,10 +38,24 @@ public class Student {
 	@ElementCollection
 	private Set<Course> courses = new HashSet<>();
 
+	/**
+	 * student default constructor
+	 */
 	public Student() {
-
+		super();
 	}
 
+	/**
+	 * student constructor with fields as parameters
+	 * 
+	 * @param studentId      the student Id
+	 * @param firstName      the first name of student
+	 * @param lastName       the last name of student
+	 * @param studentEmail   the email of student
+	 * @param studentAddress the address of student
+	 * @param studentMobile  the mobile number of student
+	 * @param courses        the course that student is doing
+	 */
 	public Student(int studentId, String firstName, String lastName, String studentEmail, String studentAddress,
 			long studentMobile, Set<Course> courses) {
 		super();
@@ -55,10 +76,20 @@ public class Student {
 		this.studentId = studentId;
 	}
 
+	/**
+	 * gets the first name of student
+	 * 
+	 * @return
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * setter for student first name
+	 * 
+	 * @param firstName
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}

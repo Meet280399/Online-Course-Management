@@ -17,6 +17,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * The Class Subject is the Entity representing subject table in database
+ * 
+ * @author Akshay Gowda
+ *
+ */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "Subject")
@@ -31,9 +38,20 @@ public class Subject {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
 	private Set<Course> courses = new HashSet<>();
 
+	/**
+	 * subject default constructor
+	 */
 	public Subject() {
+		super();
 	}
 
+	/**
+	 * subject constructor with fields as parameters
+	 * 
+	 * @param subjectId   the subject Id
+	 * @param subjectName the name of subject
+	 * @param courses     the course that will contain this subject
+	 */
 	public Subject(int subjectId, String subjectName, Set<Course> courses) {
 		SubjectId = subjectId;
 		SubjectName = subjectName;
@@ -48,10 +66,20 @@ public class Subject {
 		SubjectId = subjectId;
 	}
 
+	/**
+	 * gets the name of subject
+	 * 
+	 * @return
+	 */
 	public String getSubjectName() {
 		return SubjectName;
 	}
 
+	/**
+	 * setter for the subject name
+	 * 
+	 * @param subjectName
+	 */
 	public void setSubjectName(String subjectName) {
 		SubjectName = subjectName;
 	}

@@ -17,6 +17,13 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ManyToAny;
 
+/**
+ * The Class Project is the Entity representing project table in database
+ * 
+ * @author Vinod Kumar
+ *
+ */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "project")
@@ -32,10 +39,21 @@ public class Project {
 	@JoinColumn(name = "courseId")
 	private Course course;
 
+	/**
+	 * project default constructor
+	 */
 	public Project() {
-
+		super();
 	}
 
+	/**
+	 * project constructor with fields as parameters
+	 * 
+	 * @param projectId              the project Id
+	 * @param projectName            the name of the project
+	 * @param projectDifficultyLevel the difficulty level of project
+	 * @param course                 the course that will contain this project
+	 */
 	public Project(int projectId, String projectName, String projectDifficultyLevel, Course course) {
 		super();
 		this.projectId = projectId;
@@ -52,10 +70,20 @@ public class Project {
 		this.projectId = projectId;
 	}
 
+	/**
+	 * gets the name of project
+	 * 
+	 * @return
+	 */
 	public String getProjectName() {
 		return projectName;
 	}
 
+	/**
+	 * setter for the project name
+	 * 
+	 * @param projectName
+	 */
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}

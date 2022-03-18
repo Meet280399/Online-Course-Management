@@ -18,6 +18,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * The Class Course is the Entity representing course table in database
+ * 
+ * @author Meet Patel
+ *
+ */
+
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "Course")
@@ -36,15 +43,29 @@ public class Course {
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private Set<Project> projects = new HashSet<>();
-	
+
 	@ManyToOne(targetEntity = Student.class)
 	@JoinColumn(name = "studentId")
 	private Student student;
 
+	/**
+	 * Course default Constructor
+	 */
 	public Course() {
 	}
 
-	public Course(int courseId, String courseName, String courseDuration, Set<Subject> subjects, Set<Project> projects, Student student) {
+	/**
+	 * Course Constructor with fields as parameters
+	 * 
+	 * @param courseId       the course Id
+	 * @param courseName     the name of course
+	 * @param courseDuration the duration of course
+	 * @param subjects       the subjects present in the course
+	 * @param projects       the projects present in the course
+	 * @param student        the course that student has taken
+	 */
+	public Course(int courseId, String courseName, String courseDuration, Set<Subject> subjects, Set<Project> projects,
+			Student student) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -62,10 +83,20 @@ public class Course {
 		this.courseId = courseId;
 	}
 
+	/**
+	 * gets the name of the course
+	 * 
+	 * @return
+	 */
 	public String getCourseName() {
 		return courseName;
 	}
 
+	/**
+	 * setter method for the course name
+	 * 
+	 * @param courseName
+	 */
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
@@ -93,8 +124,6 @@ public class Course {
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
 	}
-	
-	
 
 	public Student getStudent() {
 		return student;

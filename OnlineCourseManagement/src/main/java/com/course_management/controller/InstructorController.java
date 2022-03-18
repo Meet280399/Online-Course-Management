@@ -14,74 +14,124 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course_management.entity.Course;
 import com.course_management.entity.Instructor;
+import com.course_management.service.AdminService;
 import com.course_management.service.InstructorService;
 
 @RestController
 @RequestMapping("/Instructor-Details")
 public class InstructorController {
 
+	// connecting the controller with the administrator service class
+	@Autowired
+	private AdminService adminService;
+
+	// connecting the controller with the instructor service class
 	@Autowired
 	private InstructorService instructorService;
 
-	//URL :- http://localhost:8090/OnlineCourseManagement/All-Instructor
-
-	@GetMapping("/All-Instructor")
+	// requests the controller to get the list of instructors
+	// http://localhost:8090/OnlineCourseManagement/Instructor-Details/Instructors-List
+	@GetMapping("/Instructors-List")
 	public ResponseEntity<List<Instructor>> getAllInstructors() {
-		List<Instructor> instructorList = instructorService.getallInstructors();
-
+		List<Instructor> instructorList = instructorService.getAllInstructors();
 		if (instructorList.isEmpty()) {
 			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
 		}
-
 		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
-
 	}
 
-	
+	// request the controller to get the instructor with Id mentioned
 	@GetMapping("/Instructor/{instructorId}")
 	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId) {
-
 		Instructor instructor = instructorService.findInstructor(instructorId);
-
+		if (instructor == null) {
+			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
-
 	}
 
+	// request controller to delete the instructor with the Id mentioned
 	@DeleteMapping("/Delete-Instructor/{instructorId}")
 	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId) {
 		List<Instructor> instructorList = instructorService.deleteInstructor(instructorId);
-
+		if (instructorList.isEmpty() || instructorList == null) {
+			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
-
 	}
 
+	// request controller to save the instructor entered by user
 	@PostMapping("/Save-Instructor")
-	public ResponseEntity<Instructor> saveInstructor(@RequestBody Instructor instructor)
-	{
-		
-		Instructor instructors= instructorService.saveInstructor(instructor);
-		if(instructors==null)
-		{
+	public ResponseEntity<Instructor> saveInstructor(@RequestBody Instructor instructor) {
+		Instructor instructors = instructorService.saveInstructor(instructor);
+		if (instructors == null) {
 			return new ResponseEntity("Sorry! Instructor not present!", HttpStatus.NOT_FOUND);
 		}
-		
 		return new ResponseEntity<Instructor>(instructors, HttpStatus.OK);
-	
 	}
-	
+
+	// request controller to update the instructor as mentioned by user
 	@PutMapping("/Update-Instructor")
-	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor){
-		
-		List<Instructor> instructorList= instructorService.updateInstructor(instructor);
-		if(instructorList.isEmpty())
-		{
+	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor) {
+		List<Instructor> instructorList = instructorService.updateInstructor(instructor);
+		if (instructorList.isEmpty()) {
 			return new ResponseEntity("Sorry! Instructor not Present!", HttpStatus.NOT_FOUND);
 		}
-		
 		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
 	}
-	
-	
-	
+
+	// ------------- Controller for the requests related to the course------------------------
+
+	// requests the controller to get the list of course
+	@GetMapping("/Course-List")
+	public ResponseEntity<List<Course>> getAllCourse() {
+		List<Course> courseList = adminService.getAllCourse();
+		if (courseList.isEmpty()) {
+			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+	}
+
+	// request the controller to get the Course with Id mentioned
+	@GetMapping("/Course/{courseId}")
+	public ResponseEntity<Course> findCourseById(@PathVariable("courseId") Integer courseId) {
+		Course course = adminService.findCourse(courseId);
+		if (course == null) {
+			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Course>(course, HttpStatus.OK);
+	}
+
+	// request controller to delete the Course with the Id mentioned
+	@DeleteMapping("/Delete-Course/{courseId}")
+	public ResponseEntity<List<Course>> deleteCourse(@PathVariable("courseId") Integer courseId) {
+		List<Course> courseList = adminService.deleteCourse(courseId);
+		if (courseList.isEmpty() || courseList == null) {
+			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+	}
+
+	// request controller to save the Course entered by user
+	@PostMapping("/Save-Course")
+	public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
+		Course courses = adminService.saveCourse(course);
+		if (courses == null) {
+			return new ResponseEntity("Sorry! Course not present!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Course>(courses, HttpStatus.OK);
+	}
+
+	// request controller to update the Course as mentioned by user
+	@PutMapping("/Update-Course")
+	public ResponseEntity<List<Course>> updateCourse(@RequestBody Course course) {
+		List<Course> courseList = adminService.updateCourse(course);
+		if (courseList.isEmpty()) {
+			return new ResponseEntity("Sorry! Course not Present!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+	}
+
 }

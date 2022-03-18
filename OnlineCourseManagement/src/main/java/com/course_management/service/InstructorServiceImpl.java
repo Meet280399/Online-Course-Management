@@ -4,17 +4,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.course_management.dao.InstructorRepository;
 import com.course_management.entity.Instructor;
 
+@Service
 public class InstructorServiceImpl implements InstructorService {
 
 	@Autowired
 	private InstructorRepository instructorRepo;
 
 	@Override
-	public List<Instructor> getallInstructors() {
+	public List<Instructor> getAllInstructors() {
 
 		return instructorRepo.findAll();
 	}

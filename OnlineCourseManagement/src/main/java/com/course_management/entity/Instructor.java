@@ -6,6 +6,8 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "instructor")
 public class Instructor {
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	@Column(name = "instructor_id")
 	private int instructorId;
 
@@ -39,20 +42,17 @@ public class Instructor {
 
 	@OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
 	private Set<Feedback> feedbacks = new HashSet<>();// Initialization required to avoid NullPointerException
-	private Feedback feedback;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="course_id")
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "course_id")
 	private Course course;
-	
-	
 
 	public Instructor() {
 
 	}
 
 	public Instructor(int instructorId, String name, String email, String mobileNo, double salary, int grades,
-			Set<Feedback> feedbacks, Feedback feedback,Course course) {
+			Set<Feedback> feedbacks, Course course) {
 		super();
 		this.instructorId = instructorId;
 		this.name = name;
@@ -61,8 +61,7 @@ public class Instructor {
 		this.salary = salary;
 		this.grades = grades;
 		this.feedbacks = feedbacks;
-		this.feedback = feedback;
-		this.course=course;
+		this.course = course;
 	}
 
 	public int getInstructorId() {
@@ -121,15 +120,6 @@ public class Instructor {
 		this.feedbacks = feedbacks;
 	}
 
-	public Feedback getFeedback() {
-		return feedback;
-	}
-
-	public void setFeedback(Feedback feedback) {
-		this.feedback = feedback;
-	}
-	
-
 	public Course getCourse() {
 		return course;
 	}
@@ -141,8 +131,7 @@ public class Instructor {
 	@Override
 	public String toString() {
 		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
-				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + ", feedback="
-				+ feedback + "]";
+				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + "]";
 	}
 
 }

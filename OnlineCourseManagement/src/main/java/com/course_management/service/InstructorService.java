@@ -9,7 +9,7 @@ import com.course_management.entity.Subject;
 
 @Service
 public interface InstructorService {
-	public List<Instructor> getallInstructors();
+	public List<Instructor> getAllInstructors();
 	public List<Instructor> deleteInstructor(Integer instructorId);
 	public Instructor saveInstructor(Instructor instructor);
 	public List<Instructor> updateInstructor(Instructor instructor);

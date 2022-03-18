@@ -2,6 +2,8 @@ package com.course_management.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,15 +12,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="feedback")
+@Access(AccessType.FIELD)
+@Table(name = "feedback")
 public class Feedback {
 	@Id
-	@Column(name ="feedback_id")
+	@Column(name = "feedback_id")
 	private int feedbackId;
 	private String description;
 	private LocalDate feedbackDate;
 
-	@ManyToOne
+	@ManyToOne(targetEntity = Instructor.class)
 	@JoinColumn(name = "instructorId")
 	private Instructor instructor;
 

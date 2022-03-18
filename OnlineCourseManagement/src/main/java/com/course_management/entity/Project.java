@@ -3,6 +3,8 @@ package com.course_management.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,16 +18,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ManyToAny;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "project")
 public class Project {
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
 	@Column(name = "project_Id")
 	private int projectId;
 	private String projectName;
 	private String projectDifficultyLevel;
 
-	@ManyToOne
+	@ManyToOne(targetEntity = Course.class)
 	@JoinColumn(name = "courseId")
 	private Course course;
 

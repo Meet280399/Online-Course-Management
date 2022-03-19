@@ -30,11 +30,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 //		
 //	}
 	
-	@ExceptionHandler(DuplicateStudentException.class)
-	public ResponseEntity<Object> handleDuplicateStudentExecption() {
-		LOG.error("handleDuplicateStudentExecption");
-		return new ResponseEntity<Object>("Student already Exists in Database", HttpStatus.NOT_FOUND);
-	}
+//	@ExceptionHandler(DuplicateStudentException.class)
+//	public ResponseEntity<Object> handleDuplicateStudentExecption() {
+//		LOG.error("handleDuplicateStudentExecption");
+//		return new ResponseEntity<Object>("Student already Exists in Database", HttpStatus.NOT_FOUND);
+//	}
 
 	@ExceptionHandler(DuplicateInstructorException.class)
 	public ResponseEntity<Object> handleDuplicateInstructorExecption() {
@@ -42,18 +42,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>("Instructor already Exists in Database", HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(DuplicateCourseException.class)
-	public ResponseEntity<Object> handleDuplicateCourseExecption() {
-		LOG.error("handleDuplicateCourseExecption");
-		return new ResponseEntity<Object>("This Course already exists in the database", HttpStatus.NOT_FOUND);
-	}
+//	@ExceptionHandler(DuplicateCourseException.class)
+//	public ResponseEntity<Object> handleDuplicateCourseExecption() {
+//		LOG.error("handleDuplicateCourseExecption");
+//		return new ResponseEntity<Object>("This Course already exists in the database", HttpStatus.NOT_FOUND);
+//	}
 
 	@ExceptionHandler(StudentNotFoundException.class)
 	public ResponseEntity<Object> handleStudentNotFoundException() {
 		LOG.error("handleStudentNotFoundException");
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("message", "This Student is not present in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(null, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(SubjectNotFoundException.class)

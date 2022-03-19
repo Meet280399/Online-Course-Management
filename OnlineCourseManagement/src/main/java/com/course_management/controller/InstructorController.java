@@ -53,7 +53,7 @@ public class InstructorController {
 	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId) throws InstructorNotFoundException {
 		Instructor instructor = instructorService.findInstructor(instructorId);
 		if (instructor == null) {
-			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
+			throw new InstructorNotFoundException("Instructor with the Id mentioned not Present in database");
 		}
 		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
 	}
@@ -63,7 +63,7 @@ public class InstructorController {
 	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId) throws InstructorNotFoundException {
 		List<Instructor> instructorList = instructorService.deleteInstructor(instructorId);
 		if (instructorList.isEmpty() || instructorList == null) {
-			return new ResponseEntity("Sorry no Instructor found!", HttpStatus.NOT_FOUND);
+			throw new InstructorNotFoundException("Instructor with the Id mentioned not Present in database");
 		}
 		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
 	}
@@ -83,7 +83,7 @@ public class InstructorController {
 	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor) throws InstructorNotFoundException {
 		List<Instructor> instructorList = instructorService.updateInstructor(instructor);
 		if (instructorList.isEmpty()) {
-			return new ResponseEntity("Sorry! Instructor not Present!", HttpStatus.NOT_FOUND);
+			throw new InstructorNotFoundException("Instructor not Present in database");
 		}
 		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
 	}

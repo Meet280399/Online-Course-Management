@@ -42,7 +42,6 @@ public class StudentController {
 	}
 	@GetMapping("/Student/{studentId}")
 	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId) throws StudentNotFoundException {
-
 		Student student = studentService.findStudent(studentId);
 
 		return new ResponseEntity<Student>(student, HttpStatus.OK);

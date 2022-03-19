@@ -24,8 +24,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public List<Feedback> deleteFeedback(Integer feedbackId) throws NoSuchFeedbackException {
-		feedbackRepo.deleteById(feedbackId);
+		try { feedbackRepo.deleteById(feedbackId);
 		return feedbackRepo.findAll();
+		}
 	}
 
 	@Override

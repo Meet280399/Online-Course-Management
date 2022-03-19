@@ -51,41 +51,31 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(StudentNotFoundException.class)
 	public ResponseEntity<Object> handleStudentNotFoundException() {
 		LOG.error("handleStudentNotFoundException");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This Student is not present in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>("This Student is not present in the database.", HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(SubjectNotFoundException.class)
 	public ResponseEntity<Object> handleSubjectNotFoundException() {
 		LOG.error("handleSubjectNotFoundException");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This Subject is not present in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>("This Subject is not present in the database.", HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(InstructorNotFoundException.class)
 	public ResponseEntity<Object> handleInstructorNotFoundException() {
 		LOG.error("handleInstructorNotFoundException");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This Instructor is not present in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>("This Instructor is not present in the database.", HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(NoSuchCourseException.class)
 	public ResponseEntity<Object> handleNoSuchCourseException() {
 		LOG.error("handleNoSuchCourseException");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This Course is not present in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>("This Course is not present in the database.", HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(NoSuchFeedbackException.class)
 	public ResponseEntity<Object> handleNoSuchFeedbackException() {
 		LOG.error("handleNoSuchFeedbackException");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("message", "This Feedback is not present in the database.");
-		return new ResponseEntity<Object>(null, headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>("This Feedback is not present in the database.", HttpStatus.BAD_REQUEST);
 	}
 
 }

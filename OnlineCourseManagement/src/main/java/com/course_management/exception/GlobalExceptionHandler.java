@@ -47,7 +47,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		LOG.error("handleDuplicateCourseExecption");
 		return new ResponseEntity<Object>("This Course already exists in the database", HttpStatus.NOT_FOUND);
 	}
-
+	
+	@ExceptionHandler(DuplicateSubjectException.class)
+	public ResponseEntity<Object> handleDuplicateSubjectException() {
+		LOG.error("handleDuplicateSubjectException");
+		return new ResponseEntity<Object>("This Subject already exists in the database.", HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(StudentNotFoundException.class)
 	public ResponseEntity<Object> handleStudentNotFoundException() {
 		LOG.error("handleStudentNotFoundException");
@@ -77,5 +83,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		LOG.error("handleNoSuchFeedbackException");
 		return new ResponseEntity<Object>("This Feedback is not present in the database.", HttpStatus.BAD_REQUEST);
 	}
+	
+	
 
 }

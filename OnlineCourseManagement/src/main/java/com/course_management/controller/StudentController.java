@@ -22,7 +22,7 @@ import com.course_management.service.InstructorService;
 import com.course_management.service.StudentService;
 
 @RestController
-@RequestMapping("/Student-Details")
+@RequestMapping("/Student")
 public class StudentController {
 	
 	@Autowired
@@ -59,13 +59,11 @@ public class StudentController {
 	@PostMapping("/Save-Student")
 	public ResponseEntity<Student> saveStudent(@RequestBody Student student) throws DuplicateStudentException
 	{
-		
 		Student students= studentService.saveStudent(student);
 		if(students==null)
 		{
 			return new ResponseEntity("Sorry! Instructor not present!", HttpStatus.NOT_FOUND);
 		}
-		
 		return new ResponseEntity<Student>(students, HttpStatus.OK);
 	
 	}
@@ -78,7 +76,6 @@ public class StudentController {
 		{
 			return new ResponseEntity("Sorry! Student not Present!", HttpStatus.NOT_FOUND);
 		}
-		
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
 	}
 }

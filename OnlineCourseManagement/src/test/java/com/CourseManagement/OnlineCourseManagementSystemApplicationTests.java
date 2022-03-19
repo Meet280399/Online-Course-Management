@@ -45,9 +45,9 @@ class OnlineCourseManagementSystemApplicationTests {
     @Test
     public void testUpdateStudent() {
         Student student = studentRepository.findById(101).get();
-        student.setFirstName("patel");
+        student.setStudentName("patel");
         studentRepository.save(student);
-        assertNotEquals("patel meet", studentRepository.findById(101).get().getFirstName());
+        assertNotEquals("patel meet", studentRepository.findById(101).get().getStudentName());
     }
  
     // test case for checking the list of the students

@@ -39,7 +39,7 @@ public class Instructor {
 	private String email;
 
 	@Column(name = "instructor_mobile")
-	private String mobileNo;
+	private Long mobileNo;
 
 	@Column(name = "instructor_salary")
 	private double salary;
@@ -47,9 +47,6 @@ public class Instructor {
 //	@Column(name = "grades_given")
 	@Column(name = "grade_given")
 	private int grades;
-
-	@OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
-	private Set<Feedback> feedbacks = new HashSet<>();// Initialization required to avoid NullPointerException
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "course_id")
@@ -71,11 +68,10 @@ public class Instructor {
 	 * @param mobileNo     the mobile number of the instructor
 	 * @param salary       the salary of instructor
 	 * @param grades       the grades given by instructor
-	 * @param feedbacks    the feedbacks given by instructor
 	 * @param course       the course instructor is teaching
 	 */
-	public Instructor(int instructorId, String name, String email, String mobileNo, double salary, int grades,
-			Set<Feedback> feedbacks, Course course) {
+	public Instructor(int instructorId, String name, String email, Long mobileNo, double salary, int grades,
+			Course course) {
 		super();
 		this.instructorId = instructorId;
 		this.name = name;
@@ -83,7 +79,6 @@ public class Instructor {
 		this.mobileNo = mobileNo;
 		this.salary = salary;
 		this.grades = grades;
-		this.feedbacks = feedbacks;
 		this.course = course;
 	}
 
@@ -121,11 +116,11 @@ public class Instructor {
 		this.email = email;
 	}
 
-	public String getMobileNo() {
+	public Long getMobileNo() {
 		return mobileNo;
 	}
 
-	public void setMobileNo(String mobileNo) {
+	public void setMobileNo(Long mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
@@ -145,14 +140,6 @@ public class Instructor {
 		this.grades = grades;
 	}
 
-	public Set<Feedback> getFeedbacks() {
-		return feedbacks;
-	}
-
-	public void setFeedbacks(Set<Feedback> feedbacks) {
-		this.feedbacks = feedbacks;
-	}
-
 	public Course getCourse() {
 		return course;
 	}
@@ -161,10 +148,10 @@ public class Instructor {
 		this.course = course;
 	}
 
-	@Override
-	public String toString() {
-		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
-				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
+//				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + "]";
+//	}
 
 }

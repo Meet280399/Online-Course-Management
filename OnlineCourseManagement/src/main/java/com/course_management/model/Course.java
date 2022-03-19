@@ -41,9 +41,6 @@ public class Course {
 			@JoinColumn(name = "subject_id") })
 	private Set<Subject> subjects = new HashSet<>();
 
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-	private Set<Project> projects = new HashSet<>();
-
 	@ManyToOne(targetEntity = Student.class)
 	@JoinColumn(name = "studentId")
 	private Student student;
@@ -61,18 +58,23 @@ public class Course {
 	 * @param courseName     the name of course
 	 * @param courseDuration the duration of course
 	 * @param subjects       the subjects present in the course
-	 * @param projects       the projects present in the course
 	 * @param student        the course that student has taken
 	 */
-	public Course(int courseId, String courseName, String courseDuration, Set<Subject> subjects, Set<Project> projects,
+	public Course(int courseId, String courseName, String courseDuration, Set<Subject> subjects,
 			Student student) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.courseDuration = courseDuration;
 		this.subjects = subjects;
-		this.projects = projects;
 		this.student = student;
+	}
+	
+	public Course(int courseId, String courseName, String courseDuration) {
+		super();
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.courseDuration = courseDuration;
 	}
 
 	public int getCourseId() {
@@ -117,14 +119,6 @@ public class Course {
 		this.subjects = subjects;
 	}
 
-	public Set<Project> getProjects() {
-		return projects;
-	}
-
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
-	}
-
 	public Student getStudent() {
 		return student;
 	}
@@ -133,10 +127,10 @@ public class Course {
 		this.student = student;
 	}
 
-	@Override
-	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
-				+ ", subjects=" + subjects + ", projects=" + projects + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
+//				+ ", subjects=" + subjects + ", projects=" + projects + "]";
+//	}
 
 }

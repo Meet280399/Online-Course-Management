@@ -35,8 +35,8 @@ public class Subject {
 	private int SubjectId;
 	private String SubjectName;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
-	private Set<Course> courses = new HashSet<>();
+//	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
+//	private Set<Course> courses = new HashSet<>();
 
 	/**
 	 * subject default constructor
@@ -55,7 +55,13 @@ public class Subject {
 	public Subject(int subjectId, String subjectName, Set<Course> courses) {
 		SubjectId = subjectId;
 		SubjectName = subjectName;
-		this.courses = courses;
+//		this.courses = courses;
+	}
+
+	public Subject(int subjectId, String subjectName) {
+		super();
+		SubjectId = subjectId;
+		SubjectName = subjectName;
 	}
 
 	public int getSubjectId() {
@@ -84,17 +90,17 @@ public class Subject {
 		SubjectName = subjectName;
 	}
 
-	public Set<Course> getCourses() {
-		return courses;
-	}
+//	public Set<Course> getCourses() {
+//		return courses;
+//	}
 
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
+//	public void setCourses(Set<Course> courses) {
+//		this.courses = courses;
+//	}
 
 	@Override
 	public String toString() {
-		return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + ", courses=" + courses + "]";
+		return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + "]";
 	}
 
 }

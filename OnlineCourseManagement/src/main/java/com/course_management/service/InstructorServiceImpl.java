@@ -17,13 +17,10 @@ import com.course_management.model.Instructor;
 @Service
 public class InstructorServiceImpl implements InstructorService {
 
-	// adding the dependent Instructor Repository to the Instructor Service Implementation
+	// adding the dependent Instructor Repository to the Instructor Service
+	// Implementation
 	@Autowired
 	private InstructorRepository instructorRepo;
-
-	// adding the dependent Feedback Repository to the Instructor Service Implementation
-	@Autowired
-	private FeedbackRepository feedbackRepo;
 
 	@Override
 	public List<Instructor> getAllInstructors() {
@@ -31,19 +28,24 @@ public class InstructorServiceImpl implements InstructorService {
 	}
 
 	@Override
-	public List<Instructor> deleteInstructor(Integer instructorId) throws InstructorNotFoundException{
+	public List<Instructor> deleteInstructor(Integer instructorId) throws InstructorNotFoundException {
 		instructorRepo.deleteById(instructorId);
 		return instructorRepo.findAll();
 	}
 
 	@Override
 	public Instructor saveInstructor(Instructor instructor) throws DuplicateInstructorException {
-		instructorRepo.saveAndFlush(instructor);
-		return instructorRepo.save(instructor);
+		try {
+			Instructor instructors = instructorRepo.saveAndFlush(instructor);
+			return instructors;
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new DuplicateInstructorException("Instructor already Exists in Database");
+		}
 	}
 
 	@Override
-	public List<Instructor> updateInstructor(Instructor instructor) throws InstructorNotFoundException{
+	public List<Instructor> updateInstructor(Instructor instructor) throws InstructorNotFoundException {
 		instructorRepo.saveAndFlush(instructor);
 		return instructorRepo.findAll();
 	}
@@ -52,35 +54,6 @@ public class InstructorServiceImpl implements InstructorService {
 	public Instructor findInstructor(Integer instructorId) throws InstructorNotFoundException {
 		Optional<Instructor> instructorCollect = instructorRepo.findById(instructorId);
 		return instructorCollect.get();
-	}
-
-	@Override
-	public List<Feedback> getAllFeedbacks() {
-		return feedbackRepo.findAll();
-	}
-
-	@Override
-	public List<Feedback> deleteFeedback(Integer feedbackId) throws NoSuchFeedbackException{
-		feedbackRepo.deleteById(feedbackId);
-		return feedbackRepo.findAll();
-	}
-
-	@Override
-	public Feedback saveFeedback(Feedback feedback) {
-		feedbackRepo.saveAndFlush(feedback);
-		return feedbackRepo.save(feedback);
-	}
-
-	@Override
-	public List<Feedback> updateFeedback(Feedback feedback) throws NoSuchFeedbackException {
-		feedbackRepo.saveAndFlush(feedback);
-		return feedbackRepo.findAll();
-	}
-
-	@Override
-	public Feedback findFeedback(Integer feedbackId) throws NoSuchFeedbackException {
-		Optional<Feedback> feedbackCollect = feedbackRepo.findById(feedbackId);
-		return feedbackCollect.get();
 	}
 
 }

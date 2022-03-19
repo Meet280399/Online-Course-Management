@@ -28,15 +28,10 @@ public class Student {
 	@Id
 	@Column(name = "student_id")
 	private int studentId;
-	private String firstName;
-	private String lastName;
+	private String studentName;
 	private String studentEmail;
 	private String studentAddress;
 	private long studentMobile;
-
-	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-	@ElementCollection
-	private Set<Course> courses = new HashSet<>();
 
 	/**
 	 * student default constructor
@@ -54,18 +49,14 @@ public class Student {
 	 * @param studentEmail   the email of student
 	 * @param studentAddress the address of student
 	 * @param studentMobile  the mobile number of student
-	 * @param courses        the course that student is doing
 	 */
-	public Student(int studentId, String firstName, String lastName, String studentEmail, String studentAddress,
-			long studentMobile, Set<Course> courses) {
+	public Student(int studentId, String studentName, String studentEmail, String studentAddress, long studentMobile) {
 		super();
 		this.studentId = studentId;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.studentName = studentName;
 		this.studentEmail = studentEmail;
 		this.studentAddress = studentAddress;
 		this.studentMobile = studentMobile;
-		this.courses = courses;
 	}
 
 	public int getStudentId() {
@@ -77,29 +68,21 @@ public class Student {
 	}
 
 	/**
-	 * gets the first name of student
+	 * gets the student name
 	 * 
 	 * @return
 	 */
-	public String getFirstName() {
-		return firstName;
+	public String getStudentName() {
+		return studentName;
 	}
 
 	/**
-	 * setter for student first name
+	 * setter for student name
 	 * 
-	 * @param firstName
+	 * @param studentName
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 	public String getStudentEmail() {
@@ -126,19 +109,10 @@ public class Student {
 		this.studentMobile = studentMobile;
 	}
 
-	public Set<Course> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
-
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", studentEmail=" + studentEmail + ", studentAddress=" + studentAddress + ", studentMobile="
-				+ studentMobile + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentEmail=" + studentEmail
+//				+ ", studentAddress=" + studentAddress + ", studentMobile=" + studentMobile + "]";
+//	}
 
 }

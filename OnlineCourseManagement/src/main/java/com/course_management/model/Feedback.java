@@ -97,10 +97,10 @@ public class Feedback {
 		this.instructor = instructor;
 	}
 
-	@Override
-	public String toString() {
-		return "Feedback [feedbackId=" + feedbackId + ", description=" + description + ", feedbackDate=" + feedbackDate
-				+ ", instructor=" + instructor + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Feedback [feedbackId=" + feedbackId + ", description=" + description + ", feedbackDate=" + feedbackDate
+//				+ ", instructor=" + instructor + "]";
+//	}
 
 }

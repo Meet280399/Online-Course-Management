@@ -32,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Student saveStudent(Student student) throws DuplicateStudentException {
-		studentRepo.saveAndFlush(student);
+//		studentRepo.saveAndFlush(student);
 		return studentRepo.save(student);
 	}
 
@@ -47,5 +47,11 @@ public class StudentServiceImpl implements StudentService {
 		Optional<Student> studentCollect = studentRepo.findById(studentId);
 		return studentCollect.get();
 	}
+
+//	@Override
+//	public int createStudent(Student student) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
 }

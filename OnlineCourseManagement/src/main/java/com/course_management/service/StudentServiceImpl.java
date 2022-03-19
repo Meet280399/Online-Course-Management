@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.StudentRepository;
+import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.DuplicateStudentException;
+import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.StudentNotFoundException;
 import com.course_management.model.Instructor;
 import com.course_management.model.Student;
@@ -24,28 +26,48 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> deleteStudent(Integer studentId) throws StudentNotFoundException{
-		studentRepo.deleteById(studentId);
-		return studentRepo.findAll();
+	public List<Student> deleteStudent(Integer studentId) throws StudentNotFoundException {
+		try {
+			studentRepo.deleteById(studentId);
+			return studentRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new StudentNotFoundException("Student is not Present in Database");
+		}
 
 	}
 
 	@Override
 	public Student saveStudent(Student student) throws DuplicateStudentException {
-//		studentRepo.saveAndFlush(student);
-		return studentRepo.save(student);
+		try {
+			Student students = studentRepo.saveAndFlush(student);
+			return students;
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new DuplicateStudentException("Student already Exists in Database");
+		}
 	}
 
 	@Override
-	public List<Student> updateStudent(Student student) throws StudentNotFoundException{
-		studentRepo.saveAndFlush(student);
-		return studentRepo.findAll();
+	public List<Student> updateStudent(Student student) throws StudentNotFoundException {
+		try {
+			studentRepo.saveAndFlush(student);
+			return studentRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new StudentNotFoundException("Student is not Present in Database");
+		}
 	}
 
 	@Override
-	public Student findStudent(Integer studentId) throws StudentNotFoundException{
-		Optional<Student> studentCollect = studentRepo.findById(studentId);
-		return studentCollect.get();
+	public Student findStudent(Integer studentId) throws StudentNotFoundException {
+		try {
+			Optional<Student> studentCollect = studentRepo.findById(studentId);
+			return studentCollect.get();
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new StudentNotFoundException("Student is not Present in Database");
+		}
 	}
 
 //	@Override

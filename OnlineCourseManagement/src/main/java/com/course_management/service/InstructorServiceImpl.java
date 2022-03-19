@@ -29,8 +29,14 @@ public class InstructorServiceImpl implements InstructorService {
 
 	@Override
 	public List<Instructor> deleteInstructor(Integer instructorId) throws InstructorNotFoundException {
-		instructorRepo.deleteById(instructorId);
-		return instructorRepo.findAll();
+		try { 
+			instructorRepo.deleteById(instructorId);
+			return instructorRepo.findAll();
+		}
+		catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new InstructorNotFoundException("Instructor is not Present in Database");
+		}
 	}
 
 	@Override
@@ -46,14 +52,26 @@ public class InstructorServiceImpl implements InstructorService {
 
 	@Override
 	public List<Instructor> updateInstructor(Instructor instructor) throws InstructorNotFoundException {
-		instructorRepo.saveAndFlush(instructor);
-		return instructorRepo.findAll();
+		try {
+			instructorRepo.saveAndFlush(instructor);
+			return instructorRepo.findAll();
+		}
+		catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new InstructorNotFoundException("Instructor is not Present in Database");
+		}
 	}
 
 	@Override
 	public Instructor findInstructor(Integer instructorId) throws InstructorNotFoundException {
-		Optional<Instructor> instructorCollect = instructorRepo.findById(instructorId);
-		return instructorCollect.get();
+		try {
+			Optional<Instructor> instructorCollect = instructorRepo.findById(instructorId);
+			return instructorCollect.get();
+		}
+		catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new InstructorNotFoundException("Instructor is not Present in Database");
+		}
 	}
 
 }

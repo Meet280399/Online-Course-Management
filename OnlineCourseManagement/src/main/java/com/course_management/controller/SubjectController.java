@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course_management.exception.DuplicateStudentException;
-import com.course_management.exception.DuplicateSubjectException;
 import com.course_management.exception.StudentNotFoundException;
 import com.course_management.exception.SubjectNotFoundException;
 import com.course_management.model.Student;

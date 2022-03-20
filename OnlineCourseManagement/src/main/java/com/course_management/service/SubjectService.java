@@ -11,7 +11,7 @@ import com.course_management.model.Subject;
 public interface SubjectService {
 
 	public List<Subject> getallSubjects();
-	public Subject saveSubject(Subject subject);
+	public List<Subject> saveSubject(Subject subject);
 	public List<Subject> updateSubject(Subject subject) throws SubjectNotFoundException;
 	public List<Subject> deleteSubject(Integer SubjectId) throws SubjectNotFoundException;
 

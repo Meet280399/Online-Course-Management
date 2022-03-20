@@ -15,7 +15,7 @@ public interface CourseService {
 
 	public List<Course> deleteCourse(Integer courseId) throws NoSuchCourseException;
 
-	public Course saveCourse(Course course) throws DuplicateCourseException;
+	public List<Course> saveCourse(Course course) throws DuplicateCourseException;
 
 	public List<Course> updateCourse(Course course) throws NoSuchCourseException;
 

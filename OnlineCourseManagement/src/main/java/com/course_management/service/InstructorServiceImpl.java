@@ -40,10 +40,10 @@ public class InstructorServiceImpl implements InstructorService {
 	}
 
 	@Override
-	public Instructor saveInstructor(Instructor instructor) throws DuplicateInstructorException {
+	public List<Instructor> saveInstructor(Instructor instructor) throws DuplicateInstructorException {
 		try {
-			Instructor instructors = instructorRepo.saveAndFlush(instructor);
-			return instructors;
+			instructorRepo.saveAndFlush(instructor);
+			return instructorRepo.findAll();
 		} catch (Exception e) {
 			System.out.println("Inside Implementation");
 			throw new DuplicateInstructorException("Instructor already Exists in Database");

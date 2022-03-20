@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course_management.exception.DuplicateCourseException;
+import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.NoSuchCourseException;
 import com.course_management.model.Course;
 import com.course_management.service.AdminService;
@@ -45,41 +46,56 @@ public class CourseController {
 	@GetMapping("/Course/{courseId}")
 	public ResponseEntity<Course> findCourseById(@PathVariable("courseId") Integer courseId)
 			throws NoSuchCourseException {
-		Course course = courseService.findCourse(courseId);
-		if (course == null) {
-			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
+		List<Course> existingCouse = courseService.getAllCourse();
+		for (Course c : existingCouse) {
+			if (c.getCourseId() == courseId) {
+				Course course = courseService.findCourse(courseId);
+				return new ResponseEntity<Course>(course, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<Course>(course, HttpStatus.OK);
+		throw new NoSuchCourseException("Course with "+ courseId + " mentioned not Present in database");
 	}
 
 	// request controller to delete the Course with the Id mentioned
 	@DeleteMapping("/Delete-Course/{courseId}")
 	public ResponseEntity<List<Course>> deleteCourse(@PathVariable("courseId") Integer courseId)
 			throws NoSuchCourseException {
-		List<Course> courseList = courseService.deleteCourse(courseId);
-		if (courseList.isEmpty() || courseList == null) {
-			return new ResponseEntity("Sorry no Course found!", HttpStatus.NOT_FOUND);
+		List<Course> existingCouse = courseService.getAllCourse();
+		for (Course c : existingCouse) {
+			if (c.getCourseId() == courseId) {
+				List<Course> courses = courseService.deleteCourse(courseId);
+				return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+		throw new NoSuchCourseException("Course not Present in database");
+		
 	}
 
 	// request controller to save the Course entered by user
 	@PostMapping("/Save-Course")
-	public ResponseEntity<Course> saveCourse(@RequestBody Course course) throws DuplicateCourseException {
-		Course courses = courseService.saveCourse(course);
-		if (courses == null) {
-			return new ResponseEntity("Sorry! Course not present!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Course>> saveCourse(@RequestBody Course course) 
+			throws DuplicateCourseException {
+		List<Course> existingCouse = courseService.getAllCourse();
+		for (Course c : existingCouse) {
+			if (c.getCourseId() == course.getCourseId()) {
+				throw new DuplicateCourseException("Course already exists in Database");
+			}
 		}
-		return new ResponseEntity<Course>(courses, HttpStatus.OK);
+		List<Course> courses = courseService.saveCourse(course);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 
 	// request controller to update the Course as mentioned by user
 	@PutMapping("/Update-Course")
-	public ResponseEntity<List<Course>> updateCourse(@RequestBody Course course) throws NoSuchCourseException {
-		List<Course> courseList = courseService.updateCourse(course);
-		if (courseList.isEmpty()) {
-			return new ResponseEntity("Sorry! Course not Present!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Course>> updateCourse(@RequestBody Course course) 
+			throws NoSuchCourseException {
+		List<Course> existingCouse = courseService.getAllCourse();
+		for (Course c : existingCouse) {
+			if (c.getCourseId() == course.getCourseId()) {
+				List<Course> courseList = courseService.updateCourse(course);
+				return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+		throw new NoSuchCourseException("Course not Present in database");
 	}
 }

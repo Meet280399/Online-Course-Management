@@ -1,6 +1,7 @@
 package com.course_management.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course_management.dao.StudentRepository;
 import com.course_management.exception.DuplicateStudentException;
 import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.StudentNotFoundException;
@@ -30,11 +32,11 @@ public class StudentController {
 	private StudentService studentService;
 
 	// URL :-
-	// http://localhost:8090/OnlineCourseManagement/Student-Details/All-Student
+	// http://localhost:8090/OnlineCourseManagement/Student/Student-List
 
-	@GetMapping("/All-Student")
+	@GetMapping("/Student-List")
 	public ResponseEntity<List<Student>> getAllStudents() {
-		List<Student> studentList = studentService.getallIStudents();
+		List<Student> studentList = studentService.getAllStudents();
 		if (studentList.isEmpty()) {
 			return new ResponseEntity("Sorry no Student found!", HttpStatus.NOT_FOUND);
 		}
@@ -45,42 +47,51 @@ public class StudentController {
 	@GetMapping("/Student/{studentId}")
 	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
-		Student student = studentService.findStudent(studentId);
-		if (student == null) {
-			throw new StudentNotFoundException("Student with the Id mentioned not Present in database");
+		List<Student> existingStudent = studentService.getAllStudents();
+		for (Student s : existingStudent) {
+			if (s.getStudentId() == studentId) {
+				Student student = studentService.findStudent(studentId);
+				return new ResponseEntity<Student>(student, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<Student>(student, HttpStatus.OK);
-
+		throw new StudentNotFoundException("Student with "+ studentId + " mentioned not Present in database");
 	}
 
 	@DeleteMapping("/Delete-Student/{studentId}")
 	public ResponseEntity<List<Student>> deleteStudent(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
-		List<Student> studentList = studentService.deleteStudent(studentId);
-		if (studentList.isEmpty() || studentList == null) {
-			throw new StudentNotFoundException("Student with the Id mentioned not Present in database");
+		List<Student> existingStudent = studentService.getAllStudents();
+		for (Student s : existingStudent) {
+			if (s.getStudentId() == studentId) {
+				List<Student> studentList = studentService.deleteStudent(studentId);
+				return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
+		throw new StudentNotFoundException("Student with the Id mentioned not Present in database");
 
 	}
 
 	@PostMapping("/Save-Student")
-	public ResponseEntity<Student> saveStudent(@RequestBody Student student) throws DuplicateStudentException {
-		Student students = studentService.saveStudent(student);
-		if (students == null) {
-			return new ResponseEntity<Student>(students, HttpStatus.OK);
+	public ResponseEntity<List<Student>> saveStudent(@RequestBody Student student) throws DuplicateStudentException {
+		List<Student> existingStudent = studentService.getAllStudents();
+		for (Student s : existingStudent) {
+			if (s.getStudentId() == student.getStudentId()) {
+				throw new DuplicateStudentException("Student Already exists in Database");
+			}
 		}
-		throw new DuplicateStudentException("Student Already Exists");
-
+		List<Student> students = studentService.saveStudent(student);
+		return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
 	}
 
 	@PutMapping("/Update-Student")
 	public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student) throws StudentNotFoundException {
-
-		List<Student> studentList = studentService.updateStudent(student);
-		if (studentList.isEmpty()) {
-			throw new StudentNotFoundException("Student not Present in database");
+		List<Student> existingStudent = studentService.getAllStudents();
+		for (Student s : existingStudent) {
+			if (s.getStudentId() == student.getStudentId()) {
+				List<Student> studentList = studentService.updateStudent(student);
+				return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
+		throw new StudentNotFoundException("Student not Present in database");
 	}
 }

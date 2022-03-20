@@ -1,6 +1,7 @@
 package com.course_management.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,15 @@ public class InstructorController {
 	@Autowired
 	private AdminService adminService;
 
+//	Instructor instructor = new Instructor();
+
 	// connecting the controller with the instructor service class
 	@Autowired
 	private InstructorService instructorService;
 
 	// requests the controller to get the list of instructors
 	// http://localhost:8090/OnlineCourseManagement/Instructor-Details/Instructors-List
-	@GetMapping("/Instructors-List")
+	@GetMapping("/Instructor-List")
 	public ResponseEntity<List<Instructor>> getAllInstructors() {
 		List<Instructor> instructorList = instructorService.getAllInstructors();
 		if (instructorList.isEmpty()) {
@@ -50,46 +53,58 @@ public class InstructorController {
 
 	// request the controller to get the instructor with Id mentioned
 	@GetMapping("/Instructor/{instructorId}")
-	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId) throws InstructorNotFoundException {
-		Instructor instructor = instructorService.findInstructor(instructorId);
-		if (instructor == null) {
-			throw new InstructorNotFoundException("Instructor with the Id mentioned not Present in database");
+	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId)
+			throws InstructorNotFoundException {
+		List<Instructor> existingInstructor = instructorService.getAllInstructors();
+		for (Instructor i : existingInstructor) {
+			if (i.getInstructorId() == instructorId) {
+				Instructor instructor = instructorService.findInstructor(instructorId);
+				return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+		throw new InstructorNotFoundException("Instructor with "+ instructorId + " mentioned not Present in database");
 	}
 
 	// request controller to delete the instructor with the Id mentioned
 	@DeleteMapping("/Delete-Instructor/{instructorId}")
-	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId) throws InstructorNotFoundException {
-		List<Instructor> instructorList = instructorService.deleteInstructor(instructorId);
-		if (instructorList.isEmpty() || instructorList == null) {
-			throw new InstructorNotFoundException("Instructor with the Id mentioned not Present in database");
+	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId)
+			throws InstructorNotFoundException {
+		List<Instructor> existingInstructor = instructorService.getAllInstructors();
+		for (Instructor i : existingInstructor) {
+			if (i.getInstructorId() == instructorId) {
+				List<Instructor> instructors = instructorService.deleteInstructor(instructorId);
+				return new ResponseEntity<List<Instructor>>(instructors, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
+		throw new InstructorNotFoundException("Instructor not Present in database");
 	}
 
 	// request controller to save the instructor entered by user
 	@PostMapping("/Save-Instructor")
-	public ResponseEntity<Instructor> saveInstructor(@RequestBody Instructor instructor) throws DuplicateInstructorException {
-		Instructor instructors = instructorService.saveInstructor(instructor);
-		if (instructors == null) {
-			return new ResponseEntity<Instructor>(instructors, HttpStatus.OK);
+	public ResponseEntity<List<Instructor>> saveInstructor(@RequestBody Instructor instructor)
+			throws DuplicateInstructorException {
+		List<Instructor> existingInstructor = instructorService.getAllInstructors();
+		for (Instructor i : existingInstructor) {
+			if (i.getInstructorId() == instructor.getInstructorId()) {
+				throw new DuplicateInstructorException("Instructor already exists in Database");
+			}
 		}
-		throw new DuplicateInstructorException("Instructor Already Exists");
+		List<Instructor> instructors = instructorService.saveInstructor(instructor);
+		return new ResponseEntity<List<Instructor>>(instructors, HttpStatus.OK);
 	}
 
 	// request controller to update the instructor as mentioned by user
 	@PutMapping("/Update-Instructor")
-	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor) throws InstructorNotFoundException {
-		List<Instructor> instructorList = instructorService.updateInstructor(instructor);
-		if (instructorList.isEmpty()) {
-			throw new InstructorNotFoundException("Instructor not Present in database");
+	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor)
+			throws InstructorNotFoundException {
+		List<Instructor> existingInstructor = instructorService.getAllInstructors();
+		for (Instructor i : existingInstructor) {
+			if (i.getInstructorId() == instructor.getInstructorId()) {
+				List<Instructor> instructors = instructorService.updateInstructor(instructor);
+				return new ResponseEntity<List<Instructor>>(instructors, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Instructor>>(instructorList, HttpStatus.OK);
+		throw new InstructorNotFoundException("Instructor not Present in database");
 	}
-
-	
-
-	
 
 }

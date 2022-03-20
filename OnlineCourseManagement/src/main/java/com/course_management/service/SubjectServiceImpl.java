@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.course_management.dao.SubjectRepository;
 import com.course_management.exception.SubjectNotFoundException;
 import com.course_management.model.Subject;
 
+@Service
 public class SubjectServiceImpl implements SubjectService{
 
 	@Autowired
@@ -20,9 +22,9 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 
 	@Override
-	public Subject saveSubject(Subject subject) {
+	public List<Subject> saveSubject(Subject subject) {
 		subjectRepo.saveAndFlush(subject);
-		return subjectRepo.save(subject);
+		return subjectRepo.findAll();
 	}
 
 	@Override

@@ -39,10 +39,10 @@ public class CourseServiceImpl implements CourseService {
 
 	// method implementing to save course
 	@Override
-	public Course saveCourse(Course course) throws DuplicateCourseException {
+	public List<Course> saveCourse(Course course) throws DuplicateCourseException {
 		try {
-			Course courses = courseRepo.saveAndFlush(course);
-			return courses;
+			courseRepo.saveAndFlush(course);
+			return courseRepo.findAll();
 		} catch (Exception e) {
 			System.out.println("Inside Implementation");
 			throw new DuplicateCourseException("Course already exists in Database");

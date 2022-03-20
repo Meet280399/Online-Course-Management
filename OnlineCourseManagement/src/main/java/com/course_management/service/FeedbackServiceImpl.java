@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.course_management.dao.FeedbackRepository;
+import com.course_management.exception.NoSuchCourseException;
 import com.course_management.exception.NoSuchFeedbackException;
 import com.course_management.model.Feedback;
 
@@ -24,15 +25,19 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public List<Feedback> deleteFeedback(Integer feedbackId) throws NoSuchFeedbackException {
-		try { feedbackRepo.deleteById(feedbackId);
-		return feedbackRepo.findAll();
+		try {
+			feedbackRepo.deleteById(feedbackId);
+			return feedbackRepo.findAll();
+		} catch (Exception e) {
+			System.out.println("Inside Implementation");
+			throw new NoSuchFeedbackException("Feedback is not Present in Database");
 		}
 	}
 
 	@Override
-	public Feedback saveFeedback(Feedback feedback) {
+	public List<Feedback> saveFeedback(Feedback feedback) {
 		feedbackRepo.saveAndFlush(feedback);
-		return feedbackRepo.save(feedback);
+		return feedbackRepo.findAll();
 	}
 
 	@Override

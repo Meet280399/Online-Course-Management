@@ -17,7 +17,7 @@ public interface InstructorService {
 	// methods for managing the instructor
 	public List<Instructor> getAllInstructors();
 	public List<Instructor> deleteInstructor(Integer instructorId) throws InstructorNotFoundException;
-	public Instructor saveInstructor(Instructor instructor) throws DuplicateInstructorException;
+	public List<Instructor> saveInstructor(Instructor instructor) throws DuplicateInstructorException;
 	public List<Instructor> updateInstructor(Instructor instructor) throws InstructorNotFoundException;
 	public Instructor findInstructor(Integer instructorId) throws InstructorNotFoundException;
 	

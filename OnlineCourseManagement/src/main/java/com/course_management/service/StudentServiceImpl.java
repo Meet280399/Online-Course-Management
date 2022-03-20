@@ -21,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
 	private StudentRepository studentRepo;
 
 	@Override
-	public List<Student> getallIStudents() {
+	public List<Student> getAllStudents() {
 		return studentRepo.findAll();
 	}
 
@@ -38,10 +38,10 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Student saveStudent(Student student) throws DuplicateStudentException {
+	public List<Student> saveStudent(Student student) throws DuplicateStudentException {
 		try {
-			Student students = studentRepo.saveAndFlush(student);
-			return students;
+			studentRepo.saveAndFlush(student);
+			return studentRepo.findAll();
 		} catch (Exception e) {
 			System.out.println("Inside Implementation");
 			throw new DuplicateStudentException("Student already Exists in Database");
@@ -68,6 +68,7 @@ public class StudentServiceImpl implements StudentService {
 			System.out.println("Inside Implementation");
 			throw new StudentNotFoundException("Student is not Present in Database");
 		}
+		
 	}
 
 //	@Override

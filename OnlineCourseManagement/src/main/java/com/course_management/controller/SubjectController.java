@@ -15,23 +15,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course_management.exception.DuplicateStudentException;
+import com.course_management.exception.DuplicateSubjectException;
 import com.course_management.exception.StudentNotFoundException;
 import com.course_management.exception.SubjectNotFoundException;
+import com.course_management.model.Instructor;
 import com.course_management.model.Student;
 import com.course_management.model.Subject;
 import com.course_management.service.StudentService;
 import com.course_management.service.SubjectService;
 
 @RestController
-@RequestMapping("Subject")
+@RequestMapping("/Subject")
 public class SubjectController {
-	
+
 	@Autowired
 	private SubjectService subjectService;
-	
-	//URL :- http://localhost:8090/OnlineCourseManagement/Subject-Details/All-Subject
-	
-	@GetMapping("/All-Subjects")
+
+	// URL :-
+	// http://localhost:8090/OnlineCourseManagement/Subject-Details/All-Subject
+
+	@GetMapping("/Subject-List")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
 		List<Subject> subjectList = subjectService.getallSubjects();
 
@@ -41,45 +44,58 @@ public class SubjectController {
 		return new ResponseEntity<List<Subject>>(subjectList, HttpStatus.OK);
 
 	}
+
 	@GetMapping("/Subject/{subjectId}")
-	public ResponseEntity<Subject> findSubjectById(@PathVariable("subjectId") Integer subjectId) throws SubjectNotFoundException {
-
-		Subject subject = subjectService.findSubject(subjectId);
-
-		return new ResponseEntity<Subject>(subject, HttpStatus.OK);
-
+	public ResponseEntity<Subject> findSubjectById(@PathVariable("subjectId") Integer subjectId)
+			throws SubjectNotFoundException {
+		List<Subject> existingSubject = subjectService.getallSubjects();
+		for (Subject s : existingSubject) {
+			if (s.getSubjectId() == subjectId) {
+				Subject subject = subjectService.findSubject(subjectId);
+				return new ResponseEntity<Subject>(subject, HttpStatus.OK);
+			}
+		}
+		throw new SubjectNotFoundException("Subject is not Present in Database");
 	}
 
 	@DeleteMapping("/Delete-Subject/{subjectId}")
-	public ResponseEntity<List<Subject>> deleteSubject(@PathVariable("subjectId") Integer subjectId) throws SubjectNotFoundException {
-		List<Subject> subjectList = subjectService.deleteSubject(subjectId);
-
-		return new ResponseEntity<List<Subject>>(subjectList, HttpStatus.OK);
-
+	public ResponseEntity<List<Subject>> deleteSubject(@PathVariable("subjectId") Integer subjectId)
+			throws SubjectNotFoundException {
+		List<Subject> existingSubject = subjectService.getallSubjects();
+		for (Subject s : existingSubject) {
+			if (s.getSubjectId() == subjectId) {
+				List<Subject> subjectList = subjectService.deleteSubject(subjectId);
+				return new ResponseEntity<List<Subject>>(subjectList, HttpStatus.OK);
+			}
+		}
+		throw new SubjectNotFoundException("Subject is not Present in Database");
 	}
+
 	@PostMapping("/Save-Subject")
-	public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) throws DuplicateSubjectException
-	{
-		Subject subjects= subjectService.saveSubject(subject);
-		if(subjects==null)
-		{
-			return new ResponseEntity("Sorry! Subject not present!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Subject>> saveSubject(@RequestBody Subject subject)
+			throws DuplicateSubjectException {
+		List<Subject> existingSubject = subjectService.getallSubjects();
+		for (Subject s : existingSubject) {
+			if (s.getSubjectId() == subject.getSubjectId()) {
+				throw new DuplicateSubjectException("Subject already exists in Database");
+			}
 		}
-		return new ResponseEntity<Subject>(subjects, HttpStatus.OK);
-	
+		List<Subject> subjects = subjectService.saveSubject(subject);
+		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/Update-Subject")
-	public ResponseEntity<List<Subject>> updateSubject(@RequestBody Subject subject) throws SubjectNotFoundException{
-		
-		List<Subject> subjectList= subjectService.updateSubject(subject);
-		if(subjectList.isEmpty())
-		{
-			return new ResponseEntity("Sorry! Subject not Present!", HttpStatus.NOT_FOUND);
+	public ResponseEntity<List<Subject>> updateSubject(@RequestBody Subject subject) 
+			throws SubjectNotFoundException {
+		List<Subject> existingSubject = subjectService.getallSubjects();
+		for (Subject s : existingSubject) {
+			if (s.getSubjectId() == subject.getSubjectId()) {
+				List<Subject> subjectList = subjectService.updateSubject(subject);
+				return new ResponseEntity<List<Subject>>(subjectList, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Subject>>(subjectList, HttpStatus.OK);
+		throw new SubjectNotFoundException("Subject is not Present in Database");
+		
+		
 	}
 }
-
-
-

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.course_management.exception.NoSuchFeedbackException;
 import com.course_management.model.Feedback;
+import com.course_management.model.Instructor;
 import com.course_management.service.FeedbackService;
 import com.course_management.service.InstructorService;
 
@@ -29,7 +30,7 @@ public class FeedbackController {
 
 	// requests the controller to get the list of Feedbacks
 	// http://localhost:8090/OnlineCourseManagement/Feedback/FeedBack-List
-	@GetMapping("/FeedBack-List")
+	@GetMapping("/Feedback-List")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks() {
 		List<Feedback> feedbackList = feedbackService.getAllFeedbacks();
 		if (feedbackList.isEmpty()) {
@@ -42,42 +43,54 @@ public class FeedbackController {
 	@DeleteMapping("/Delete-Feedback/{feedbackId}")
 	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId)
 			throws NoSuchFeedbackException {
-		List<Feedback> feedbackList = feedbackService.deleteFeedback(feedbackId);
-		if (feedbackList.isEmpty() || feedbackList == null) {
-			return new ResponseEntity("Sorry no Feedback found!", HttpStatus.NOT_FOUND);
+		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
+		for (Feedback f : existingFeedback) {
+			if (f.getFeedbackId() == feedbackId) {
+				List<Feedback> feedbackList = feedbackService.deleteFeedback(feedbackId);
+				return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+		throw new NoSuchFeedbackException("Feedback not Present in Database");
+		
 	}
 
 	// request controller to save the feedback by Instructor
 	@PostMapping("/Save-Feedback")
-	public ResponseEntity<Feedback> saveFeedback(@RequestBody Feedback feedback) {
-		Feedback feedbacks = feedbackService.saveFeedback(feedback);
+	public ResponseEntity<List<Feedback>> saveFeedback(@RequestBody Feedback feedback) {
+		List<Feedback> feedbacks = feedbackService.saveFeedback(feedback);
 		if (feedbacks == null) {
 			return new ResponseEntity("Sorry! Feedback not found!", HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Feedback>(feedbacks, HttpStatus.OK);
+		return new ResponseEntity<List<Feedback>>(feedbacks, HttpStatus.OK);
 	}
 
 	// request controller to update the feedback by Instructor
 	@PutMapping("/Update-Feedback")
 	public ResponseEntity<List<Feedback>> updateFeedback(@RequestBody Feedback feedback)
 			throws NoSuchFeedbackException {
-		List<Feedback> feedbackList = feedbackService.updateFeedback(feedback);
-		if (feedbackList.isEmpty()) {
-			return new ResponseEntity("Sorry! Feedback not found!", HttpStatus.NOT_FOUND);
+		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
+		for (Feedback f : existingFeedback) {
+			if(f.getFeedbackId() == feedback.getFeedbackId()) {
+				List<Feedback> feedbackList = feedbackService.updateFeedback(feedback);
+				return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<List<Feedback>>(feedbackList, HttpStatus.OK);
+		throw new NoSuchFeedbackException("Feedback not Present in Database");
+		
 	}
 
 	// request controller to find feedback with Id mentioned by Instructor
 	@GetMapping("/Feedback/{feedbackId}")
 	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedbackId") Integer feedbackId)
 			throws NoSuchFeedbackException {
-		Feedback feedbacks = feedbackService.findFeedback(feedbackId);
-		if (feedbacks == null) {
-			return new ResponseEntity("Sorry no feedback found!", HttpStatus.NOT_FOUND);
+		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
+		for (Feedback f : existingFeedback) {
+			if (f.getFeedbackId() == feedbackId) {
+				Feedback feedbacks = feedbackService.findFeedback(feedbackId);
+				return new ResponseEntity<Feedback>(feedbacks, HttpStatus.OK);
+			}
 		}
-		return new ResponseEntity<Feedback>(feedbacks, HttpStatus.OK);
+		throw new NoSuchFeedbackException("Feedback not Present in Database");
+		
 	}
 }

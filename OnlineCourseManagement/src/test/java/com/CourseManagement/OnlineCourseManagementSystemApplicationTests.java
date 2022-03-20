@@ -1,11 +1,18 @@
 package com.CourseManagement;
  
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
- 
+import static org.mockito.Mockito.when;
+
 import java.util.List;
- 
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
  
@@ -14,46 +21,64 @@ import com.course_management.dao.CourseRepository;
 import com.course_management.dao.FeedbackRepository;
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.StudentRepository;
+import com.course_management.exception.StudentNotFoundException;
 import com.course_management.model.Course;
 import com.course_management.model.Feedback;
 import com.course_management.model.Instructor;
 import com.course_management.model.Student;
- 
+import com.course_management.service.CourseService;
+import com.course_management.service.CourseServiceImpl;
+import com.course_management.service.FeedbackService;
+import com.course_management.service.FeedbackServiceImpl;
+import com.course_management.service.InstructorService;
+import com.course_management.service.InstructorServiceImpl;
+import com.course_management.service.StudentService;
+import com.course_management.service.StudentServiceImpl;
+
 @SpringBootTest(classes = OnlineCourseManagementApplication.class)
 class OnlineCourseManagementSystemApplicationTests {
     // connecting to the course repository for methods defined
-    @Autowired
-    public CourseRepository courseRepository;
+    @Mock
+    private CourseRepository courseRepository;
+    @InjectMocks
+    private CourseService courseService = new CourseServiceImpl();
  
     // connecting to the instructor repository for methods defined
-    @Autowired
-    public InstructorRepository instructorRepository;
+    @Mock
+    private InstructorRepository instructorRepository;
+    @InjectMocks
+    private InstructorService instructorService = new InstructorServiceImpl();
  
     // connecting to the student repository for methods defined
-    @Autowired
-    public StudentRepository studentRepository;
+    @Mock
+    private StudentRepository studentRepository;
+    @InjectMocks
+    private StudentService studentService = new StudentServiceImpl();
  
     // connecting to the feedback repository for methods defined
-    @Autowired
-    public FeedbackRepository feedbackRepository;
- 
+    @Mock
+    private FeedbackRepository feedbackRepository;
+    @InjectMocks
+    private FeedbackService feedbackService = new FeedbackServiceImpl();
+
+    
     @Test
     void contextLoads() {
     }
  
     // test case for checking the updation of student
-    @Test
-    public void testUpdateStudent() {
-        Student student = studentRepository.findById(101).get();
-        student.setStudentName("patel");
-        studentRepository.save(student);
-        assertNotEquals("patel meet", studentRepository.findById(101).get().getStudentName());
-    }
+//    @Test
+//    public void testUpdateStudent() {
+//        Student student = studentService.findStudent(101);
+//        student.setStudentName("patel");
+//        studentRepository.save(student);
+//        assertNotEquals("patel meet", studentService.findStudent(101).getStudentName());
+//    }
  
     // test case for checking the list of the students
     @Test
     public void testViewStudent() {
-        List<Student> list = studentRepository.findAll();
+        List<Student> list = studentService.getallIStudents();
         assertThat(list).size().isGreaterThan(0);
     }
  

@@ -78,7 +78,7 @@ class OnlineCourseManagementSystemApplicationTests {
     // test case for checking the list of the students
     @Test
     public void testViewStudent() {
-        List<Student> list = studentService.getallIStudents();
+        List<Student> list = studentService.getAllStudents();
         assertThat(list).size().isGreaterThan(0);
     }
  

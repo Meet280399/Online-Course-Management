@@ -1,6 +1,7 @@
 package com.course_management.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Access;
@@ -10,8 +11,12 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * The Class Student is the Entity representing student table in database
@@ -21,7 +26,6 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Access(AccessType.FIELD)
 @Table(name = "student")
 public class Student {
 
@@ -33,6 +37,13 @@ public class Student {
 	private String studentAddress;
 	private long studentMobile;
 
+//	@OneToMany(mappedBy="student",cascade=CascadeType.ALL)
+//	private Set<Course> courses = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Course.class)
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "student_id")
+	private Set<Course> courses;
+	
 	/**
 	 * student default constructor
 	 */
@@ -109,10 +120,45 @@ public class Student {
 		this.studentMobile = studentMobile;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentEmail=" + studentEmail
-//				+ ", studentAddress=" + studentAddress + ", studentMobile=" + studentMobile + "]";
-//	}
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+	public void addCourse(Course course) {
+		course.setStudent(this);
+		this.getCourses().add(course);
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentEmail=" + studentEmail
+				+ ", studentAddress=" + studentAddress + ", studentMobile=" + studentMobile + ", courses=" + courses
+				+ "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(courses, studentAddress, studentEmail, studentId, studentMobile, studentName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		return Objects.equals(courses, other.courses) && Objects.equals(studentAddress, other.studentAddress)
+				&& Objects.equals(studentEmail, other.studentEmail) && studentId == other.studentId
+				&& studentMobile == other.studentMobile && Objects.equals(studentName, other.studentName);
+	}
+	
+	
 
 }

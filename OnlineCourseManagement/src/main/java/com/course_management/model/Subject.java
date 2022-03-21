@@ -25,7 +25,6 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Access(AccessType.FIELD)
 @Table(name = "Subject")
 public class Subject {
 

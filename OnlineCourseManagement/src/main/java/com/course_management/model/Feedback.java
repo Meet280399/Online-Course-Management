@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,6 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Access(AccessType.FIELD)
 @Table(name = "feedback")
 public class Feedback {
 	@Id
@@ -28,8 +28,8 @@ public class Feedback {
 	private String description;
 	private LocalDate feedbackDate;
 
-	@ManyToOne(targetEntity = Instructor.class)
-	@JoinColumn(name = "instructorId")
+	@ManyToOne(targetEntity = Instructor.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor_id")
 	private Instructor instructor;
 
 	/**
@@ -47,12 +47,12 @@ public class Feedback {
 	 * @param feedbackDate the date on which feedback was given
 	 * @param instructor   the feedback given by instructor
 	 */
-	public Feedback(int feedbackId, String description, LocalDate feedbackDate, Instructor instructor) {
+	public Feedback(int feedbackId, String description, LocalDate feedbackDate) {
 		super();
 		this.feedbackId = feedbackId;
 		this.description = description;
 		this.feedbackDate = feedbackDate;
-		this.instructor = instructor;
+//		this.instructor = instructor;
 	}
 
 	/**

@@ -3,7 +3,11 @@ package com.course_management.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Access;
@@ -24,7 +28,6 @@ import javax.persistence.OneToOne;
  */
 
 @Entity
-@Access(AccessType.FIELD)
 @Table(name = "instructor")
 public class Instructor {
 	@Id
@@ -47,6 +50,12 @@ public class Instructor {
 //	@Column(name = "grades_given")
 	@Column(name = "grade_given")
 	private int grades;
+	
+	// entity relation with the feedback entity (OneToMany)
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Feedback.class)
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "instructor_id")
+	private Set<Feedback> feedbacks;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "course_id")
@@ -148,10 +157,47 @@ public class Instructor {
 		this.course = course;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
-//				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + "]";
-//	}
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+	public void addFeedback(Feedback feedback) {
+		feedback.setInstructor(this);
+		this.getFeedbacks().add(feedback);
+	}
+
+	@Override
+	public String toString() {
+		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
+				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + ", course="
+				+ course + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(course, email, feedbacks, grades, instructorId, mobileNo, name, salary);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Instructor other = (Instructor) obj;
+		return Objects.equals(course, other.course) && Objects.equals(email, other.email)
+				&& Objects.equals(feedbacks, other.feedbacks) && grades == other.grades
+				&& instructorId == other.instructorId && Objects.equals(mobileNo, other.mobileNo)
+				&& Objects.equals(name, other.name)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary);
+	}
+
+	
 
 }

@@ -37,9 +37,6 @@ public class StudentController {
 	@GetMapping("/Student-List")
 	public ResponseEntity<List<Student>> getAllStudents() {
 		List<Student> studentList = studentService.getAllStudents();
-		if (studentList.isEmpty()) {
-			return new ResponseEntity("Sorry no Student found!", HttpStatus.NOT_FOUND);
-		}
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
 
 	}

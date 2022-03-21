@@ -25,7 +25,6 @@ import org.hibernate.annotations.ManyToAny;
  */
 
 @Entity
-@Access(AccessType.FIELD)
 @Table(name = "project")
 public class Project {
 	@Id
@@ -35,8 +34,8 @@ public class Project {
 	private String projectName;
 	private String projectDifficultyLevel;
 
-	@ManyToOne(targetEntity = Course.class)
-	@JoinColumn(name = "courseId")
+	@ManyToOne(targetEntity = Course.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_id")
 	private Course course;
 
 	/**

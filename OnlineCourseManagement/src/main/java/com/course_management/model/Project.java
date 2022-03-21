@@ -36,11 +36,11 @@ public class Project {
 	@Column(name = "project_Id")
 	@NotNull(message = "Project Id is mandatory")
 	private int projectId;
-	
+
 	@Column(name = "project_name")
 	@NotEmpty(message = "Project Name is mandatory")
 	private String projectName;
-	
+
 	@Column(name = "project_difficulty_level")
 	private String projectDifficultyLevel;
 
@@ -121,7 +121,7 @@ public class Project {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(course, projectDifficultyLevel, projectId, projectName);
+		return Objects.hash(projectId);
 	}
 
 	@Override
@@ -133,10 +133,7 @@ public class Project {
 		if (getClass() != obj.getClass())
 			return false;
 		Project other = (Project) obj;
-		return Objects.equals(course, other.course)
-				&& Objects.equals(projectDifficultyLevel, other.projectDifficultyLevel) && projectId == other.projectId
-				&& Objects.equals(projectName, other.projectName);
+		return projectId == other.projectId;
 	}
-	
 
 }

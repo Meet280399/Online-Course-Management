@@ -107,24 +107,21 @@ public class Feedback {
 				+ ", instructor=" + instructor + "]";
 	}
 
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(description, feedbackDate, feedbackId, instructor);
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Feedback other = (Feedback) obj;
-//		return Objects.equals(description, other.description) && Objects.equals(feedbackDate, other.feedbackDate)
-//				&& feedbackId == other.feedbackId && Objects.equals(instructor, other.instructor);
-//	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(feedbackId);
+	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Feedback other = (Feedback) obj;
+		return feedbackId == other.feedbackId;
+	}
 
 }

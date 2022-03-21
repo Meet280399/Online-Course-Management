@@ -36,19 +36,19 @@ public class Student {
 	@Column(name = "student_id")
 	@NotNull(message = "Student Id is mandatory")
 	private int studentId;
-	
+
 	@Column(name = "student_name")
 	@NotEmpty(message = "Student Name is mandatory")
 	private String studentName;
-	
+
 	@Column(name = "student_email")
 	@NotEmpty(message = "Student E-Mail is mandatory")
 	private String studentEmail;
-	
+
 	@Column(name = "student_address")
 	@NotEmpty(message = "Student Address is mandatory")
 	private String studentAddress;
-	
+
 	@Column(name = "student_mobile")
 	@NotNull(message = "Student Mobile Number is mandatory")
 	private long studentMobile;
@@ -59,7 +59,7 @@ public class Student {
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "student_id")
 	private Set<Course> courses;
-	
+
 	/**
 	 * student default constructor
 	 */
@@ -158,7 +158,7 @@ public class Student {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(courses, studentAddress, studentEmail, studentId, studentMobile, studentName);
+		return Objects.hash(studentId);
 	}
 
 	@Override
@@ -170,11 +170,7 @@ public class Student {
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
-		return Objects.equals(courses, other.courses) && Objects.equals(studentAddress, other.studentAddress)
-				&& Objects.equals(studentEmail, other.studentEmail) && studentId == other.studentId
-				&& studentMobile == other.studentMobile && Objects.equals(studentName, other.studentName);
+		return studentId == other.studentId;
 	}
-	
-	
 
 }

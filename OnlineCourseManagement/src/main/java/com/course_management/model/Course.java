@@ -40,11 +40,11 @@ public class Course {
 	@Column(name = "course_Id")
 	@NotNull(message = "Course Id is mandatory")
 	private int courseId;
-	
+
 	@Column(name = "course_name")
 	@NotEmpty(message = "Course Name is mandatory")
 	private String courseName;
-	
+
 	@Column(name = "course_duration")
 	private String courseDuration;
 
@@ -158,29 +158,10 @@ public class Course {
 		this.getProjects().add(project);
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
-//				+ ", subjects=" + subjects + ", student=" + student + ", projects=" + projects + "]";
-//	}
-
 	@Override
-	public int hashCode() {
-		return Objects.hash(courseId);
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
+				+ ", subjects=" + subjects + ", student=" + student + ", projects=" + projects + "]";
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Course other = (Course) obj;
-		return courseId == other.courseId;
-	}
-
-	
 
 }

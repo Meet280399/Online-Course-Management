@@ -173,7 +173,7 @@ public class Instructor {
 	}
 
 	public void addFeedback(Feedback feedback) {
-		feedback.setInstructor(this);
+//		feedback.setInstructor(this);
 		this.getFeedbacks().add(feedback);
 	}
 
@@ -182,23 +182,6 @@ public class Instructor {
 		return "Instructor [instructorId=" + instructorId + ", name=" + name + ", email=" + email + ", mobileNo="
 				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + ", course="
 				+ course + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(instructorId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Instructor other = (Instructor) obj;
-		return instructorId == other.instructorId;
 	}
 
 }

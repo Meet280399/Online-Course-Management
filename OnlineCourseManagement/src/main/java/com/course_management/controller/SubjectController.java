@@ -27,16 +27,16 @@ import com.course_management.service.StudentService;
 import com.course_management.service.SubjectService;
 
 @RestController
-@RequestMapping("/Subject")
+@RequestMapping("/subject")
 public class SubjectController {
 
 	@Autowired
 	private SubjectService subjectService;
 
 	// URL :-
-	// http://localhost:8090/OnlineCourseManagement/Subject-Details/All-Subject
+	// http://localhost:8090/onlinecoursemanagement/subject/subjectlist
 
-	@GetMapping("/Subject-List")
+	@GetMapping("/subjectlist")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
 		List<Subject> subjectList = subjectService.getallSubjects();
 
@@ -46,8 +46,10 @@ public class SubjectController {
 		return new ResponseEntity<List<Subject>>(subjectList, HttpStatus.OK);
 
 	}
-
-	@GetMapping("/Subject/{subjectId}")
+	
+	// http://localhost:8090/onlinecoursemanagement/subject/{subjectId}
+	
+	@GetMapping("/subject/{subjectId}")
 	public ResponseEntity<Subject> findSubjectById(@PathVariable("subjectId") Integer subjectId)
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
@@ -59,8 +61,10 @@ public class SubjectController {
 		}
 		throw new SubjectNotFoundException("Subject is not Present in Database");
 	}
-
-	@DeleteMapping("/Delete-Subject/{subjectId}")
+	
+	// http://localhost:8090/onlinecoursemanagement/subject/deletesubject/{subjectId}
+	
+	@DeleteMapping("/deletesubject/{subjectId}")
 	public ResponseEntity<List<Subject>> deleteSubject(@PathVariable("subjectId") Integer subjectId)
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
@@ -72,8 +76,10 @@ public class SubjectController {
 		}
 		throw new SubjectNotFoundException("Subject is not Present in Database");
 	}
-
-	@PostMapping("/Save-Subject")
+	
+	// http://localhost:8090/onlinecoursemanagement/subject/savesubject
+	
+	@PostMapping("/savesubject")
 	public ResponseEntity<List<Subject>> saveSubject(@Valid @RequestBody Subject subject)
 			throws DuplicateSubjectException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
@@ -85,8 +91,10 @@ public class SubjectController {
 		List<Subject> subjects = subjectService.saveSubject(subject);
 		return new ResponseEntity<List<Subject>>(subjects, HttpStatus.OK);
 	}
-
-	@PutMapping("/Update-Subject")
+	
+	// http://localhost:8090/onlinecoursemanagement/subject/updatesubject
+	
+	@PutMapping("/updatesubject")
 	public ResponseEntity<List<Subject>> updateSubject(@RequestBody Subject subject) 
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();

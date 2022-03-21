@@ -27,23 +27,26 @@ import com.course_management.service.InstructorService;
 import com.course_management.service.StudentService;
 
 @RestController
-@RequestMapping("/Student")
+@RequestMapping("/student")
 public class StudentController {
 
 	@Autowired
 	private StudentService studentService;
 
 	// URL :-
-	// http://localhost:8090/OnlineCourseManagement/Student/Student-List
+	// http://localhost:8090/onlinecoursemanagement/student/studentlist
 
-	@GetMapping("/Student-List")
+	@GetMapping("/studentlist")
 	public ResponseEntity<List<Student>> getAllStudents() {
 		List<Student> studentList = studentService.getAllStudents();
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
 
 	}
-
-	@GetMapping("/Student/{studentId}")
+	
+	
+	// http://localhost:8090/onlinecoursemanagement/student/{studentId}
+	
+	@GetMapping("/student/{studentId}")
 	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();
@@ -55,8 +58,11 @@ public class StudentController {
 		}
 		throw new StudentNotFoundException("Student with "+ studentId + " mentioned not Present in database");
 	}
-
-	@DeleteMapping("/Delete-Student/{studentId}")
+	
+	
+	// http://localhost:8090/onlinecoursemanagement/student/deletestudent/{studentId}
+	
+	@DeleteMapping("/deletestudent/{studentId}")
 	public ResponseEntity<List<Student>> deleteStudent(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();
@@ -69,8 +75,11 @@ public class StudentController {
 		throw new StudentNotFoundException("Student with the Id mentioned not Present in database");
 
 	}
-
-	@PostMapping("/Save-Student")
+	
+	
+	// http://localhost:8090/onlinecoursemanagement/student/savestudent
+	
+	@PostMapping("/savestudent")
 	public ResponseEntity<List<Student>> saveStudent(@Valid @RequestBody Student student) throws DuplicateStudentException {
 		List<Student> existingStudent = studentService.getAllStudents();
 		for (Student s : existingStudent) {
@@ -81,8 +90,10 @@ public class StudentController {
 		List<Student> students = studentService.saveStudent(student);
 		return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
 	}
+	
+	// http://localhost:8090/onlinecoursemanagement/student/updatestudent
 
-	@PutMapping("/Update-Student")
+	@PutMapping("/updatestudent")
 	public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student) throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();
 		for (Student s : existingStudent) {

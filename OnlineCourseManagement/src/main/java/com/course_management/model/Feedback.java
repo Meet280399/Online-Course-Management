@@ -1,6 +1,7 @@
 package com.course_management.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * The Class Feedback is the Entity representing feedback table in database
@@ -25,7 +27,7 @@ import javax.validation.constraints.NotBlank;
 public class Feedback {
 	@Id
 	@Column(name = "feedback_id")
-	@NotBlank(message = "Feedback Id is mandatory")
+	@NotNull(message = "Feedback Id is mandatory")
 	private int feedbackId;
 	private String description;
 	private LocalDate feedbackDate;
@@ -99,10 +101,30 @@ public class Feedback {
 		this.instructor = instructor;
 	}
 
+	@Override
+	public String toString() {
+		return "Feedback [feedbackId=" + feedbackId + ", description=" + description + ", feedbackDate=" + feedbackDate
+				+ ", instructor=" + instructor + "]";
+	}
+
 //	@Override
-//	public String toString() {
-//		return "Feedback [feedbackId=" + feedbackId + ", description=" + description + ", feedbackDate=" + feedbackDate
-//				+ ", instructor=" + instructor + "]";
+//	public int hashCode() {
+//		return Objects.hash(description, feedbackDate, feedbackId, instructor);
 //	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Feedback other = (Feedback) obj;
+//		return Objects.equals(description, other.description) && Objects.equals(feedbackDate, other.feedbackDate)
+//				&& feedbackId == other.feedbackId && Objects.equals(instructor, other.instructor);
+//	}
+
+	
 
 }

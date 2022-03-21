@@ -38,9 +38,11 @@ public class Course {
 	@Column(name = "course_Id")
 	@NotBlank(message = "Course Id is mandatory")
 	private int courseId;
+	
 	@Column(name = "course_name")
 	@NotBlank(message = "Course Name is mandatory")
 	private String courseName;
+	
 	@Column(name = "course_duration")
 	private String courseDuration;
 
@@ -55,7 +57,7 @@ public class Course {
 	private Student student;
 
 	// one to many relation with project entity
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Project.class)
+	@OneToMany(targetEntity = Project.class)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "course_id")
 	private Set<Project> projects;
@@ -154,15 +156,15 @@ public class Course {
 		this.getProjects().add(project);
 	}
 
-	@Override
-	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
-				+ ", subjects=" + subjects + ", student=" + student + ", projects=" + projects + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
+//				+ ", subjects=" + subjects + ", student=" + student + ", projects=" + projects + "]";
+//	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(courseDuration, courseId, courseName, projects, student, subjects);
+		return Objects.hash(courseId);
 	}
 
 	@Override
@@ -174,9 +176,9 @@ public class Course {
 		if (getClass() != obj.getClass())
 			return false;
 		Course other = (Course) obj;
-		return Objects.equals(courseDuration, other.courseDuration) && courseId == other.courseId
-				&& Objects.equals(courseName, other.courseName) && Objects.equals(projects, other.projects)
-				&& Objects.equals(student, other.student) && Objects.equals(subjects, other.subjects);
+		return courseId == other.courseId;
 	}
+
+	
 
 }

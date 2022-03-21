@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -32,23 +34,23 @@ public class Student {
 
 	@Id
 	@Column(name = "student_id")
-	@NotBlank(message = "Student Id is mandatory")
+	@NotNull(message = "Student Id is mandatory")
 	private int studentId;
 	
 	@Column(name = "student_name")
-	@NotBlank(message = "Student Name is mandatory")
+	@NotEmpty(message = "Student Name is mandatory")
 	private String studentName;
 	
 	@Column(name = "student_email")
-	@NotBlank(message = "Student E-Mail is mandatory")
+	@NotEmpty(message = "Student E-Mail is mandatory")
 	private String studentEmail;
 	
 	@Column(name = "student_address")
-	@NotBlank(message = "Student Address is mandatory")
+	@NotEmpty(message = "Student Address is mandatory")
 	private String studentAddress;
 	
 	@Column(name = "student_mobile")
-	@NotBlank(message = "Student Mobile Number is mandatory")
+	@NotNull(message = "Student Mobile Number is mandatory")
 	private long studentMobile;
 
 //	@OneToMany(mappedBy="student",cascade=CascadeType.ALL)

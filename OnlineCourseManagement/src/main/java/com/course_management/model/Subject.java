@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * The Class Subject is the Entity representing subject table in database
@@ -32,11 +34,11 @@ public class Subject {
 	@Id
 //	@GeneratedValue
 	@Column(name = "subject_Id")
-	@NotBlank(message = "Subject Id is mandatory")
+	@NotNull(message = "Subject Id is mandatory")
 	private int SubjectId;
 	
 	@Column(name = "subject_name")
-	@NotBlank(message = "Subject Name is mandatory")
+	@NotEmpty(message = "Subject Name is mandatory")
 	private String SubjectName;
 
 //	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
@@ -94,6 +96,11 @@ public class Subject {
 		SubjectName = subjectName;
 	}
 
+	@Override
+	public String toString() {
+		return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + "]";
+	}
+
 //	public Set<Course> getCourses() {
 //		return courses;
 //	}
@@ -102,9 +109,6 @@ public class Subject {
 //		this.courses = courses;
 //	}
 
-	@Override
-	public String toString() {
-		return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + "]";
-	}
+	
 
 }

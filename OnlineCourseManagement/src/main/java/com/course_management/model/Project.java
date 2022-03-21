@@ -1,6 +1,7 @@
 package com.course_management.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Access;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -31,11 +34,11 @@ public class Project {
 	@Id
 //	@GeneratedValue
 	@Column(name = "project_Id")
-	@NotBlank(message = "Project Id is mandatory")
+	@NotNull(message = "Project Id is mandatory")
 	private int projectId;
 	
 	@Column(name = "project_name")
-	@NotBlank(message = "Project Name is mandatory")
+	@NotEmpty(message = "Project Name is mandatory")
 	private String projectName;
 	
 	@Column(name = "project_difficulty_level")
@@ -115,5 +118,25 @@ public class Project {
 		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectDifficultyLevel="
 				+ projectDifficultyLevel + ", course=" + course + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(course, projectDifficultyLevel, projectId, projectName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Project other = (Project) obj;
+		return Objects.equals(course, other.course)
+				&& Objects.equals(projectDifficultyLevel, other.projectDifficultyLevel) && projectId == other.projectId
+				&& Objects.equals(projectName, other.projectName);
+	}
+	
 
 }

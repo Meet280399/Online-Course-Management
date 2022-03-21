@@ -2,6 +2,7 @@ package com.course_management.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -33,15 +34,19 @@ public class Instructor {
 	@Id
 //	@GeneratedValue
 	@Column(name = "instructor_id")
+	@NotBlank(message = "Instructor Id is mandatory")
 	private int instructorId;
 
 	@Column(name = "instructor_name")
+	@NotBlank(message = "Instructor Name is mandatory")
 	private String name;
 
 	@Column(name = "instructor_email")
+	@NotBlank(message = "Instructor E-Mail is mandatory")
 	private String email;
 
 	@Column(name = "instructor_mobile")
+	@NotBlank(message = "Instructor Mobile Number is mandatory")
 	private Long mobileNo;
 
 	@Column(name = "instructor_salary")

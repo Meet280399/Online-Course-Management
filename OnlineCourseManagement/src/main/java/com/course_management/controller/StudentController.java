@@ -3,6 +3,8 @@ package com.course_management.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +71,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/Save-Student")
-	public ResponseEntity<List<Student>> saveStudent(@RequestBody Student student) throws DuplicateStudentException {
+	public ResponseEntity<List<Student>> saveStudent(@Valid @RequestBody Student student) throws DuplicateStudentException {
 		List<Student> existingStudent = studentService.getAllStudents();
 		for (Student s : existingStudent) {
 			if (s.getStudentId() == student.getStudentId()) {

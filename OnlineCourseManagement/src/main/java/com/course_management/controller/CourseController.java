@@ -2,6 +2,8 @@ package com.course_management.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +75,7 @@ public class CourseController {
 
 	// request controller to save the Course entered by user
 	@PostMapping("/Save-Course")
-	public ResponseEntity<List<Course>> saveCourse(@RequestBody Course course) 
+	public ResponseEntity<List<Course>> saveCourse(@Valid @RequestBody Course course) 
 			throws DuplicateCourseException {
 		List<Course> existingCouse = courseService.getAllCourse();
 		for (Course c : existingCouse) {

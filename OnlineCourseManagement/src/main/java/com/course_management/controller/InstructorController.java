@@ -3,6 +3,8 @@ package com.course_management.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -81,7 +83,7 @@ public class InstructorController {
 
 	// request controller to save the instructor entered by user
 	@PostMapping("/Save-Instructor")
-	public ResponseEntity<List<Instructor>> saveInstructor(@RequestBody Instructor instructor)
+	public ResponseEntity<List<Instructor>> saveInstructor(@Valid @RequestBody Instructor instructor)
 			throws DuplicateInstructorException {
 		List<Instructor> existingInstructor = instructorService.getAllInstructors();
 		for (Instructor i : existingInstructor) {

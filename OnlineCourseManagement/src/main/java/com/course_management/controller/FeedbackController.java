@@ -2,6 +2,8 @@ package com.course_management.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +58,7 @@ public class FeedbackController {
 
 	// request controller to save the feedback by Instructor
 	@PostMapping("/Save-Feedback")
-	public ResponseEntity<List<Feedback>> saveFeedback(@RequestBody Feedback feedback) {
+	public ResponseEntity<List<Feedback>> saveFeedback(@Valid @RequestBody Feedback feedback) {
 		List<Feedback> feedbacks = feedbackService.saveFeedback(feedback);
 		if (feedbacks == null) {
 			return new ResponseEntity("Sorry! Feedback not found!", HttpStatus.NOT_FOUND);

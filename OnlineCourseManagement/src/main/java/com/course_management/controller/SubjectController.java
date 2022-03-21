@@ -2,6 +2,8 @@ package com.course_management.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +74,7 @@ public class SubjectController {
 	}
 
 	@PostMapping("/Save-Subject")
-	public ResponseEntity<List<Subject>> saveSubject(@RequestBody Subject subject)
+	public ResponseEntity<List<Subject>> saveSubject(@Valid @RequestBody Subject subject)
 			throws DuplicateSubjectException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
 		for (Subject s : existingSubject) {

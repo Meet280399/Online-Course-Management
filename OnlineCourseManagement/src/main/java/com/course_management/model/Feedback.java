@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  * The Class Feedback is the Entity representing feedback table in database
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 public class Feedback {
 	@Id
 	@Column(name = "feedback_id")
+	@NotBlank(message = "Feedback Id is mandatory")
 	private int feedbackId;
 	private String description;
 	private LocalDate feedbackDate;

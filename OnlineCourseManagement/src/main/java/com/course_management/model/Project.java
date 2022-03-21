@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -30,8 +31,14 @@ public class Project {
 	@Id
 //	@GeneratedValue
 	@Column(name = "project_Id")
+	@NotBlank(message = "Project Id is mandatory")
 	private int projectId;
+	
+	@Column(name = "project_name")
+	@NotBlank(message = "Project Name is mandatory")
 	private String projectName;
+	
+	@Column(name = "project_difficulty_level")
 	private String projectDifficultyLevel;
 
 	@ManyToOne(targetEntity = Course.class, fetch = FetchType.LAZY)

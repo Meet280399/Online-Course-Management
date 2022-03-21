@@ -23,7 +23,7 @@ import com.course_management.service.FeedbackService;
 import com.course_management.service.InstructorService;
 
 @RestController
-@RequestMapping("/Feedback")
+@RequestMapping("/feedback")
 public class FeedbackController {
 
 	// connecting the controller with the feedback service class
@@ -31,8 +31,8 @@ public class FeedbackController {
 	private FeedbackService feedbackService;
 
 	// requests the controller to get the list of Feedbacks
-	// http://localhost:8090/OnlineCourseManagement/Feedback/FeedBack-List
-	@GetMapping("/Feedback-List")
+	// http://localhost:8090/onlinecoursemanagement/feedback/feedbacklist
+	@GetMapping("/feedbacklist")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks() {
 		List<Feedback> feedbackList = feedbackService.getAllFeedbacks();
 		if (feedbackList.isEmpty()) {
@@ -42,7 +42,8 @@ public class FeedbackController {
 	}
 
 	// request controller to delete the feedback with the Id mentioned by Instructor
-	@DeleteMapping("/Delete-Feedback/{feedbackId}")
+	// http://localhost:8090/onlinecoursemanagement/feedback/deletefeedback/605
+	@DeleteMapping("/deletefeedback/{feedbackId}")
 	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId)
 			throws NoSuchFeedbackException {
 		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
@@ -57,7 +58,8 @@ public class FeedbackController {
 	}
 
 	// request controller to save the feedback by Instructor
-	@PostMapping("/Save-Feedback")
+	// http://localhost:8090/onlinecoursemanagement/feedback/savefeedback
+	@PostMapping("/savefeedback")
 	public ResponseEntity<List<Feedback>> saveFeedback(@Valid @RequestBody Feedback feedback) {
 		List<Feedback> feedbacks = feedbackService.saveFeedback(feedback);
 		if (feedbacks == null) {
@@ -67,7 +69,8 @@ public class FeedbackController {
 	}
 
 	// request controller to update the feedback by Instructor
-	@PutMapping("/Update-Feedback")
+	// http://localhost:8090/onlinecoursemanagement/feedback/updatefeedback
+	@PutMapping("/updatefeedback")
 	public ResponseEntity<List<Feedback>> updateFeedback(@RequestBody Feedback feedback)
 			throws NoSuchFeedbackException {
 		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
@@ -82,7 +85,8 @@ public class FeedbackController {
 	}
 
 	// request controller to find feedback with Id mentioned by Instructor
-	@GetMapping("/Feedback/{feedbackId}")
+	// http://localhost:8090/onlinecoursemanagement/feedback/findfeedback/601
+	@GetMapping("/findfeedback/{feedbackId}")
 	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedbackId") Integer feedbackId)
 			throws NoSuchFeedbackException {
 		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();

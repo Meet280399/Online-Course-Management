@@ -57,7 +57,7 @@ public class Instructor {
 //	@Column(name = "grades_given")
 	@Column(name = "grade_given")
 	private int grades;
-	
+
 	// entity relation with the feedback entity (OneToMany)
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = Feedback.class)
 	@Fetch(FetchMode.JOIN)
@@ -186,7 +186,7 @@ public class Instructor {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(course, email, feedbacks, grades, instructorId, mobileNo, name, salary);
+		return Objects.hash(instructorId);
 	}
 
 	@Override
@@ -198,13 +198,7 @@ public class Instructor {
 		if (getClass() != obj.getClass())
 			return false;
 		Instructor other = (Instructor) obj;
-		return Objects.equals(course, other.course) && Objects.equals(email, other.email)
-				&& Objects.equals(feedbacks, other.feedbacks) && grades == other.grades
-				&& instructorId == other.instructorId && Objects.equals(mobileNo, other.mobileNo)
-				&& Objects.equals(name, other.name)
-				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary);
+		return instructorId == other.instructorId;
 	}
-
-	
 
 }

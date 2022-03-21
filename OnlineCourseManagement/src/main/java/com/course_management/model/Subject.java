@@ -1,6 +1,7 @@
 package com.course_management.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Access;
@@ -35,14 +36,14 @@ public class Subject {
 //	@GeneratedValue
 	@Column(name = "subject_Id")
 	@NotNull(message = "Subject Id is mandatory")
-	private int SubjectId;
-	
+	private int subjectId;
+
 	@Column(name = "subject_name")
 	@NotEmpty(message = "Subject Name is mandatory")
-	private String SubjectName;
+	private String subjectName;
 
-//	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
-//	private Set<Course> courses = new HashSet<>();
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
+	private Set<Course> courses = new HashSet<>();
 
 	/**
 	 * subject default constructor
@@ -59,23 +60,23 @@ public class Subject {
 	 * @param courses     the course that will contain this subject
 	 */
 	public Subject(int subjectId, String subjectName, Set<Course> courses) {
-		SubjectId = subjectId;
-		SubjectName = subjectName;
-//		this.courses = courses;
+		this.subjectId = subjectId;
+		this.subjectName = subjectName;
+		this.courses = courses;
 	}
 
 	public Subject(int subjectId, String subjectName) {
 		super();
-		SubjectId = subjectId;
-		SubjectName = subjectName;
+		this.subjectId = subjectId;
+		this.subjectName = subjectName;
 	}
 
 	public int getSubjectId() {
-		return SubjectId;
+		return subjectId;
 	}
 
 	public void setSubjectId(int subjectId) {
-		SubjectId = subjectId;
+		this.subjectId = subjectId;
 	}
 
 	/**
@@ -83,8 +84,8 @@ public class Subject {
 	 * 
 	 * @return
 	 */
-	public String getSubjectName() {
-		return SubjectName;
+	public String getsubjectName() {
+		return subjectName;
 	}
 
 	/**
@@ -92,23 +93,38 @@ public class Subject {
 	 * 
 	 * @param subjectName
 	 */
-	public void setSubjectName(String subjectName) {
-		SubjectName = subjectName;
+	public void setsubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 
 	@Override
 	public String toString() {
-		return "Subject [SubjectId=" + SubjectId + ", SubjectName=" + SubjectName + "]";
+		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + "]";
 	}
 
-//	public Set<Course> getCourses() {
-//		return courses;
-//	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(subjectId);
+	}
 
-//	public void setCourses(Set<Course> courses) {
-//		this.courses = courses;
-//	}
-
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subject other = (Subject) obj;
+		return subjectId == other.subjectId;
+	}
 
 }

@@ -109,22 +109,4 @@ public class Subject {
 	public String toString() {
 		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(subjectId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Subject other = (Subject) obj;
-		return subjectId == other.subjectId;
-	}
-
 }

@@ -32,9 +32,9 @@ public class Feedback {
 	private String description;
 	private LocalDate feedbackDate;
 
-	@ManyToOne(targetEntity = Instructor.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "instructor_id")
-	private Instructor instructor;
+//	@ManyToOne(targetEntity = Instructor.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "instructor_id")
+//	private Instructor instructor;
 
 	/**
 	 * feedback default constructor
@@ -93,35 +93,18 @@ public class Feedback {
 		this.feedbackDate = feedbackDate;
 	}
 
-	public Instructor getInstructor() {
-		return instructor;
-	}
-
-	public void setInstructor(Instructor instructor) {
-		this.instructor = instructor;
-	}
+//	public Instructor getInstructor() {
+//		return instructor;
+//	}
+//
+//	public void setInstructor(Instructor instructor) {
+//		this.instructor = instructor;
+//	}
 
 	@Override
 	public String toString() {
 		return "Feedback [feedbackId=" + feedbackId + ", description=" + description + ", feedbackDate=" + feedbackDate
-				+ ", instructor=" + instructor + "]";
+				+ "]";
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(feedbackId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Feedback other = (Feedback) obj;
-		return feedbackId == other.feedbackId;
-	}
-
+	
 }

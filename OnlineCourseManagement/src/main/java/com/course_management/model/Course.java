@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -36,11 +38,11 @@ public class Course {
 	@Id
 //	@GeneratedValue
 	@Column(name = "course_Id")
-	@NotBlank(message = "Course Id is mandatory")
+	@NotNull(message = "Course Id is mandatory")
 	private int courseId;
 	
 	@Column(name = "course_name")
-	@NotBlank(message = "Course Name is mandatory")
+	@NotEmpty(message = "Course Name is mandatory")
 	private String courseName;
 	
 	@Column(name = "course_duration")

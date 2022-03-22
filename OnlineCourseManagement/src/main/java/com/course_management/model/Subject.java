@@ -42,7 +42,7 @@ public class Subject {
 	@NotEmpty(message = "Subject Name is mandatory")
 	private String subjectName;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
+	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 
 	/**

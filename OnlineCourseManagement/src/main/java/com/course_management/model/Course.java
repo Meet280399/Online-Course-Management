@@ -54,9 +54,9 @@ public class Course {
 	private Set<Subject> subjects = new HashSet<>();
 
 	// many to one relation with student entity
-	@ManyToOne(targetEntity = Student.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "student_id")
-	private Student student;
+//	@ManyToOne(targetEntity = Student.class, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "student_id")
+//	private Student student;
 
 	// one to many relation with project entity
 	@OneToMany(targetEntity = Project.class)
@@ -137,13 +137,13 @@ public class Course {
 		this.subjects = subjects;
 	}
 
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+//	public Student getStudent() {
+//		return student;
+//	}
+//
+//	public void setStudent(Student student) {
+//		this.student = student;
+//	}
 
 	public Set<Project> getProjects() {
 		return projects;
@@ -154,14 +154,14 @@ public class Course {
 	}
 
 	public void addProject(Project project) {
-		project.setCourse(this);
+//		project.setCourse(this);
 		this.getProjects().add(project);
 	}
 
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDuration=" + courseDuration
-				+ ", subjects=" + subjects + ", student=" + student + ", projects=" + projects + "]";
+				+ ", subjects=" + subjects  + ", projects=" + projects + "]";
 	}
 
 }

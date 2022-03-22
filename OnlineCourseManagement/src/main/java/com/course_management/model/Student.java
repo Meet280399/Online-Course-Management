@@ -145,7 +145,7 @@ public class Student {
 	}
 
 	public void addCourse(Course course) {
-		course.setStudent(this);
+//		course.setStudent(this);
 		this.getCourses().add(course);
 	}
 

@@ -39,11 +39,11 @@ public class Subject {
 	private int subjectId;
 
 	@Column(name = "subject_name")
-	@NotEmpty(message = "Subject Name is mandatory")
+//	@NotEmpty(message = "Subject Name is mandatory")
 	private String subjectName;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	private Set<Course> courses = new HashSet<>();
+	@ManyToMany(mappedBy = "subjects")
+	private Set<Course> courses;
 
 	/**
 	 * subject default constructor
@@ -59,16 +59,10 @@ public class Subject {
 	 * @param subjectName the name of subject
 	 * @param courses     the course that will contain this subject
 	 */
-	public Subject(int subjectId, String subjectName, Set<Course> courses) {
-		this.subjectId = subjectId;
-		this.subjectName = subjectName;
-		this.courses = courses;
-	}
-
 	public Subject(int subjectId, String subjectName) {
-		super();
 		this.subjectId = subjectId;
 		this.subjectName = subjectName;
+//		this.courses = courses;
 	}
 
 	public int getSubjectId() {
@@ -97,16 +91,19 @@ public class Subject {
 		this.subjectName = subjectName;
 	}
 
-	public Set<Course> getCourses() {
-		return courses;
-	}
-
+//	public Set<Course> getCourses() {
+//		return courses;
+//	}
+	
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
+	
 
 	@Override
 	public String toString() {
-		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + "]";
+		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", courses=" + courses + "]";
 	}
+
+	
 }

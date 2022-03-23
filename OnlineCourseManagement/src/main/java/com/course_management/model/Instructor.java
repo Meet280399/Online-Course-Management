@@ -1,6 +1,7 @@
 package com.course_management.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -8,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,10 +21,13 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
  * The Class Instructor is the Entity representing instructor table in database
@@ -34,7 +40,7 @@ import javax.persistence.OneToOne;
 @Table(name = "instructor")
 public class Instructor {
 	@Id
-//	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "instructor_id")
 	@NotNull(message = "Instructor Id is mandatory")
 	private int instructorId;
@@ -59,12 +65,15 @@ public class Instructor {
 	private int grades;
 
 	// entity relation with the feedback entity (OneToMany)
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Feedback.class)
+	@OneToMany(targetEntity = Feedback.class)
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "instructor_id")
 	private Set<Feedback> feedbacks;
 
-	@OneToOne(cascade = CascadeType.ALL)
+//	@OneToOne(cascade = CascadeType.ALL, targetEntity = Course.class)
+//    private Course course;
+	
+	@OneToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
 
@@ -86,8 +95,7 @@ public class Instructor {
 	 * @param grades       the grades given by instructor
 	 * @param course       the course instructor is teaching
 	 */
-	public Instructor(int instructorId, String name, String email, Long mobileNo, double salary, int grades,
-			Course course) {
+	public Instructor(int instructorId, String name, String email, Long mobileNo, double salary, int grades, Course course) {
 		super();
 		this.instructorId = instructorId;
 		this.name = name;
@@ -173,9 +181,14 @@ public class Instructor {
 	}
 
 	public void addFeedback(Feedback feedback) {
-//		feedback.setInstructor(this);
+		feedback.setInstructor(this);
 		this.getFeedbacks().add(feedback);
 	}
+	
+//	public void addCourse(Course course) {
+//		course.setInstructor(this);
+//		this.getCourse();
+//	}
 
 	@Override
 	public String toString() {

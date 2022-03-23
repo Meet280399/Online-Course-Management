@@ -47,9 +47,9 @@ public class SubjectController {
 
 	}
 	
-	// http://localhost:8090/onlinecoursemanagement/subject/{subjectId}
+	// http://localhost:8090/onlinecoursemanagement/subject/findsubject/{subjectId}
 	
-	@GetMapping("/subject/{subjectId}")
+	@GetMapping("/findsubject/{subjectId}")
 	public ResponseEntity<Subject> findSubjectById(@PathVariable("subjectId") Integer subjectId)
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();

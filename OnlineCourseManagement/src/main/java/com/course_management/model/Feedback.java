@@ -32,9 +32,9 @@ public class Feedback {
 	private String description;
 	private LocalDate feedbackDate;
 
-//	@ManyToOne(targetEntity = Instructor.class, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "instructor_id")
-//	private Instructor instructor;
+	@ManyToOne(targetEntity = Instructor.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "instructor_relation_id")
+	private Instructor instructor;
 
 	/**
 	 * feedback default constructor
@@ -51,12 +51,12 @@ public class Feedback {
 	 * @param feedbackDate the date on which feedback was given
 	 * @param instructor   the feedback given by instructor
 	 */
-	public Feedback(int feedbackId, String description, LocalDate feedbackDate) {
+	public Feedback(int feedbackId, String description, LocalDate feedbackDate, Instructor instructor) {
 		super();
 		this.feedbackId = feedbackId;
 		this.description = description;
 		this.feedbackDate = feedbackDate;
-//		this.instructor = instructor;
+		this.instructor = instructor;
 	}
 
 	/**
@@ -97,14 +97,16 @@ public class Feedback {
 //		return instructor;
 //	}
 //
-//	public void setInstructor(Instructor instructor) {
-//		this.instructor = instructor;
-//	}
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
 
 	@Override
 	public String toString() {
 		return "Feedback [feedbackId=" + feedbackId + ", description=" + description + ", feedbackDate=" + feedbackDate
-				+ "]";
+				+ ", instructor=" + instructor + "]";
 	}
+
+	
 	
 }

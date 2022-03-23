@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,20 +15,29 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+ 
+import com.course_management.OnlineCourseManagementApplication;
 import com.course_management.dao.CourseRepository;
 import com.course_management.dao.FeedbackRepository;
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.StudentRepository;
+import com.course_management.exception.StudentNotFoundException;
 import com.course_management.model.Course;
 import com.course_management.model.Feedback;
 import com.course_management.model.Instructor;
 import com.course_management.model.Student;
- 
+import com.course_management.service.CourseService;
+import com.course_management.service.CourseServiceImpl;
+import com.course_management.service.FeedbackService;
+import com.course_management.service.FeedbackServiceImpl;
+import com.course_management.service.InstructorService;
+import com.course_management.service.InstructorServiceImpl;
+import com.course_management.service.StudentService;
+import com.course_management.service.StudentServiceImpl;
 
-@SpringBootTest(classes = OnlineCourseManagementSystemApplicationTests.class)
+@SpringBootTest(classes = OnlineCourseManagementApplication.class)
 class OnlineCourseManagementSystemApplicationTests {
-//    // connecting to the course repository for methods defined
+    // connecting to the course repository for methods defined
     @Autowired
     private CourseRepository courseRepository;
 //    @InjectMocks
@@ -58,13 +66,12 @@ class OnlineCourseManagementSystemApplicationTests {
     void contextLoads() {
     }
  
-    // test case for checking the updation of student
     @Test
     public void testUpdateStudent() {
         Student student = studentRepository.findById(101).get();
-        student.setStudentName("patel");
+        student.setStudentId(101);
         studentRepository.save(student);
-        assertNotEquals("patel meet", studentRepository.findById(101).get().getStudentName());
+        assertNotEquals(50, studentRepository.findById(51).get().getStudentId());
     }
  
     // test case for checking the list of the students

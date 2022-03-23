@@ -10,6 +10,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -24,7 +27,7 @@ import org.hibernate.annotations.FetchMode;
 /**
  * The Class Student is the Entity representing student table in database
  * 
- * @author Akhil Inamdar
+ * @author Meet Patel
  *
  */
 
@@ -33,6 +36,7 @@ import org.hibernate.annotations.FetchMode;
 public class Student {
 
 	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "student_id")
 	@NotNull(message = "Student Id is mandatory")
 	private int studentId;
@@ -55,8 +59,9 @@ public class Student {
 
 //	@OneToMany(mappedBy="student",cascade=CascadeType.ALL)
 //	private Set<Course> courses = new HashSet<>();
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Course.class)
-	@Fetch(FetchMode.JOIN)
+	
+	
+	@OneToMany(targetEntity = Course.class)
 	@JoinColumn(name = "student_id")
 	private Set<Course> courses;
 
@@ -84,6 +89,7 @@ public class Student {
 		this.studentEmail = studentEmail;
 		this.studentAddress = studentAddress;
 		this.studentMobile = studentMobile;
+//		this.courses = courses;
 	}
 
 	public int getStudentId() {
@@ -145,7 +151,7 @@ public class Student {
 	}
 
 	public void addCourse(Course course) {
-//		course.setStudent(this);
+		course.setStudent(this);
 		this.getCourses().add(course);
 	}
 

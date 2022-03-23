@@ -38,15 +38,15 @@ public class Project {
 	private int projectId;
 
 	@Column(name = "project_name")
-	@NotEmpty(message = "Project Name is mandatory")
+//	@NotEmpty(message = "Project Name is mandatory")
 	private String projectName;
 
 	@Column(name = "project_difficulty_level")
 	private String projectDifficultyLevel;
 
-//	@ManyToOne(targetEntity = Course.class, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "course_id")
-//	private Course course;
+	@ManyToOne(targetEntity = Course.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_relation_id")
+	private Course course;
 
 	/**
 	 * project default constructor
@@ -68,7 +68,7 @@ public class Project {
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.projectDifficultyLevel = projectDifficultyLevel;
-//		this.course = course;
+		this.course = course;
 	}
 
 	public int getProjectId() {
@@ -108,14 +108,15 @@ public class Project {
 //	public Course getCourse() {
 //		return course;
 //	}
-//
-//	public void setCourse(Course course) {
-//		this.course = course;
-//	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
 	@Override
 	public String toString() {
 		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectDifficultyLevel="
-				+ projectDifficultyLevel +  "]";
+				+ projectDifficultyLevel + ", course=" + course + "]";
 	}
+	
 }

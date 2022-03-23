@@ -44,9 +44,9 @@ public class StudentController {
 	}
 	
 	
-	// http://localhost:8090/onlinecoursemanagement/student/{studentId}
+	// http://localhost:8090/onlinecoursemanagement/student/findstudent/{studentId}
 	
-	@GetMapping("/student/{studentId}")
+	@GetMapping("/findstudent/{studentId}")
 	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();

@@ -34,9 +34,9 @@ public class StudentController {
 	private StudentService studentService;
 
 	// URL :-
-	// http://localhost:8090/onlinecoursemanagement/student/studentlist
+	// http://localhost:8090/onlinecoursemanagement/student/students
 
-	@GetMapping("/studentlist")
+	@GetMapping("/students")
 	public ResponseEntity<List<Student>> getAllStudents() {
 		List<Student> studentList = studentService.getAllStudents();
 		return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
@@ -44,9 +44,9 @@ public class StudentController {
 	}
 	
 	
-	// http://localhost:8090/onlinecoursemanagement/student/findstudent/{studentId}
+	// http://localhost:8090/onlinecoursemanagement/student/students/{studentId}
 	
-	@GetMapping("/findstudent/{studentId}")
+	@GetMapping("/students/{studentId}")
 	public ResponseEntity<Student> findStudentById(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();
@@ -60,9 +60,9 @@ public class StudentController {
 	}
 	
 	
-	// http://localhost:8090/onlinecoursemanagement/student/deletestudent/{studentId}
+	// http://localhost:8090/onlinecoursemanagement/student/students/{studentId}
 	
-	@DeleteMapping("/deletestudent/{studentId}")
+	@DeleteMapping("/students/{studentId}")
 	public ResponseEntity<List<Student>> deleteStudent(@PathVariable("studentId") Integer studentId)
 			throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();
@@ -77,9 +77,9 @@ public class StudentController {
 	}
 	
 	
-	// http://localhost:8090/onlinecoursemanagement/student/savestudent
+	// http://localhost:8090/onlinecoursemanagement/student/students
 	
-	@PostMapping("/savestudent")
+	@PostMapping("/students")
 	public ResponseEntity<List<Student>> saveStudent(@Valid @RequestBody Student student) throws DuplicateStudentException {
 		List<Student> existingStudent = studentService.getAllStudents();
 		for (Student s : existingStudent) {
@@ -91,9 +91,9 @@ public class StudentController {
 		return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
 	}
 	
-	// http://localhost:8090/onlinecoursemanagement/student/updatestudent
+	// http://localhost:8090/onlinecoursemanagement/student/students
 
-	@PutMapping("/updatestudent")
+	@PutMapping("/students")
 	public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student) throws StudentNotFoundException {
 		List<Student> existingStudent = studentService.getAllStudents();
 		for (Student s : existingStudent) {

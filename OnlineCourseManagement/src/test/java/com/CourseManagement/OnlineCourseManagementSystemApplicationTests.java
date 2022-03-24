@@ -21,11 +21,13 @@ import com.course_management.dao.CourseRepository;
 import com.course_management.dao.FeedbackRepository;
 import com.course_management.dao.InstructorRepository;
 import com.course_management.dao.StudentRepository;
+import com.course_management.dao.SubjectRepository;
 import com.course_management.exception.StudentNotFoundException;
 import com.course_management.model.Course;
 import com.course_management.model.Feedback;
 import com.course_management.model.Instructor;
 import com.course_management.model.Student;
+import com.course_management.model.Subject;
 import com.course_management.service.CourseService;
 import com.course_management.service.CourseServiceImpl;
 import com.course_management.service.FeedbackService;
@@ -60,6 +62,8 @@ class OnlineCourseManagementSystemApplicationTests {
     private FeedbackRepository feedbackRepository;
 //    @InjectMocks
 //    private FeedbackService feedbackService = new FeedbackServiceImpl();
+    
+    @Autowired SubjectRepository subjectRepository;
 
     
     @Test
@@ -68,10 +72,10 @@ class OnlineCourseManagementSystemApplicationTests {
  
     @Test
     public void testUpdateStudent() {
-        Student student = studentRepository.findById(101).get();
-        student.setStudentId(101);
+        Student student = studentRepository.findById(301).get();
+        student.setStudentName("Meet Patel");
         studentRepository.save(student);
-        assertNotEquals(50, studentRepository.findById(51).get().getStudentId());
+        assertNotEquals("Tommy Shelby", studentRepository.findById(301).get().getStudentId());
     }
  
     // test case for checking the list of the students
@@ -92,11 +96,11 @@ class OnlineCourseManagementSystemApplicationTests {
  
     // test case for checking the updation of instructor
     @Test
-    public void testUpdateInstructor() {
-        Instructor instructor = instructorRepository.findById(51).get();
-        instructor.setInstructorId(50);
+    void testUpdateInstructor() {
+        Instructor instructor = instructorRepository.findById(201).get();
+        instructor.setName("Tapan Dandawala");
         instructorRepository.save(instructor);
-        assertNotEquals(50, instructorRepository.findById(51).get().getInstructorId());
+        assertNotEquals("Abc Xyz", instructorRepository.findById(201).get().getName());
     }
  
     // test case for checking the list of the instructor
@@ -109,10 +113,10 @@ class OnlineCourseManagementSystemApplicationTests {
     // test case for checking the updation of course
     @Test
     public void testUpdateCourse() {
-        Course course = courseRepository.findById(11).get();
-        course.setCourseName("Full Stack Java Development with DellBhoomi");
+        Course course = courseRepository.findById(101).get();
+        course.setCourseName("Python Development");
         courseRepository.save(course);
-        assertNotEquals("Full Stack Java Development", courseRepository.findById(11).get().getCourseName());
+        assertNotEquals("Back End Development", courseRepository.findById(101).get().getCourseName());
     }
  
     // test case for checking the list of the course
@@ -137,5 +141,21 @@ class OnlineCourseManagementSystemApplicationTests {
         List<Feedback> list = feedbackRepository.findAll();
         assertThat(list).size().isGreaterThan(0);
     }
+    
+    @Test
+    public void testUpdateSubject() {
+        Subject subject = subjectRepository.findById(503).get();
+        subject.setsubjectName("CSS3");
+        subjectRepository.save(subject);
+        assertNotEquals("jQuerry", subjectRepository.findById(503).get().getsubjectName());
+    }
+ 
+    // test case for checking the list of the subject
+    @Test
+    public void testViewSubject() {
+        List<Subject> list = subjectRepository.findAll();
+        assertThat(list).size().isGreaterThan(0);
+    }
+    
  
 }

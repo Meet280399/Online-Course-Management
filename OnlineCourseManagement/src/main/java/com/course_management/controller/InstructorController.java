@@ -43,8 +43,8 @@ public class InstructorController {
 	private InstructorService instructorService;
 
 	// requests the controller to get the list of instructors
-	// http://localhost:8090/onlinecoursemanagement/instructor/instructorlist
-	@GetMapping("/instructorlist")
+	// http://localhost:8090/onlinecoursemanagement/instructor/instructors
+	@GetMapping("/instructors")
 	public ResponseEntity<List<Instructor>> getAllInstructors() {
 		List<Instructor> instructorList = instructorService.getAllInstructors();
 		if (instructorList.isEmpty()) {
@@ -54,8 +54,8 @@ public class InstructorController {
 	}
 
 	// request the controller to get the instructor with Id mentioned
-	// http://localhost:8090/onlinecoursemanagement/instructor/findinstructor/57
-	@GetMapping("/findinstructor/{instructorId}")
+	// http://localhost:8090/onlinecoursemanagement/instructor/instructors/57
+	@GetMapping("/instructors/{instructorId}")
 	public ResponseEntity<Instructor> findInstructorById(@PathVariable("instructorId") Integer instructorId)
 			throws InstructorNotFoundException {
 		List<Instructor> existingInstructor = instructorService.getAllInstructors();
@@ -69,8 +69,8 @@ public class InstructorController {
 	}
 
 	// request controller to delete the instructor with the Id mentioned
-	// http://localhost:8090/onlinecoursemanagement/instructor/deleteinstructor/56
-	@DeleteMapping("/deleteinstructor/{instructorId}")
+	// http://localhost:8090/onlinecoursemanagement/instructor/instructors/56
+	@DeleteMapping("/instructors/{instructorId}")
 	public ResponseEntity<List<Instructor>> deleteInstructor(@PathVariable("instructorId") Integer instructorId)
 			throws InstructorNotFoundException {
 		List<Instructor> existingInstructor = instructorService.getAllInstructors();
@@ -84,8 +84,8 @@ public class InstructorController {
 	}
 
 	// request controller to save the instructor entered by user
-	// http://localhost:8090/onlinecoursemanagement/instructor/saveinstructor
-	@PostMapping("/saveinstructor")
+	// http://localhost:8090/onlinecoursemanagement/instructor/instructors
+	@PostMapping("/instructors")
 	public ResponseEntity<List<Instructor>> saveInstructor(@Valid @RequestBody Instructor instructor)
 			throws DuplicateInstructorException {
 		List<Instructor> existingInstructor = instructorService.getAllInstructors();
@@ -99,8 +99,8 @@ public class InstructorController {
 	}
 
 	// request controller to update the instructor as mentioned by user
-	// http://localhost:8090/onlinecoursemanagement/instructor/updateinstructor
-	@PutMapping("/updateinstructor")
+	// http://localhost:8090/onlinecoursemanagement/instructor/instructors
+	@PutMapping("/instructors")
 	public ResponseEntity<List<Instructor>> updateInstructor(@RequestBody Instructor instructor)
 			throws InstructorNotFoundException {
 		List<Instructor> existingInstructor = instructorService.getAllInstructors();

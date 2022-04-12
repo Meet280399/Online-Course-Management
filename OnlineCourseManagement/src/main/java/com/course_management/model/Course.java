@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "course")
 public class Course {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "course_Id")
 	@NotNull(message = "Course Id is mandatory")
 	private int courseId;

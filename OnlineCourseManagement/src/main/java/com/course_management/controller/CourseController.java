@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,8 @@ import com.course_management.service.AdminService;
 import com.course_management.service.CourseService;
 
 @RestController
-@RequestMapping("/course")
+@CrossOrigin
+@RequestMapping("rest/courses")
 public class CourseController {
 	@Autowired
 	private CourseService courseService;
@@ -33,8 +35,8 @@ public class CourseController {
 	// course------------------------
 
 	// requests the controller to get the list of course
-	// http://localhost:8090/onlinecoursemanagement/course/courselist
-	@GetMapping("/courselist")
+	// http://localhost:8090/onlinecoursemanagement/rest/courses
+	@GetMapping(produces = "application/json")
 	public ResponseEntity<List<Course>> getAllCourse() {
 		List<Course> courseList = courseService.getAllCourse();
 		if (courseList.isEmpty()) {
@@ -44,9 +46,9 @@ public class CourseController {
 	}
 
 	// request the controller to get the Course with Id mentioned
-	// http://localhost:8090/onlinecoursemanagement/course/findcourse/123
-	@GetMapping("/findcourse/{courseId}")
-	public ResponseEntity<Course> findCourseById(@PathVariable("courseId") Integer courseId)
+	// http://localhost:8090/onlinecoursemanagement/rest/courses
+	@GetMapping(path = "{courId}", produces = "application/json")
+	public ResponseEntity<Course> findCourseById(@PathVariable("courId") Integer courseId)
 			throws NoSuchCourseException {
 		List<Course> existingCouse = courseService.getAllCourse();
 		for (Course c : existingCouse) {
@@ -59,9 +61,9 @@ public class CourseController {
 	}
 
 	// request controller to delete the Course with the Id mentioned
-	// http://localhost:8090/onlinecoursemanagement/course/deletecourse/120
-	@DeleteMapping("/deletecourse/{courseId}")
-	public ResponseEntity<List<Course>> deleteCourse(@PathVariable("courseId") Integer courseId)
+	// http://localhost:8090/onlinecoursemanagement/rest/courses/120
+	@DeleteMapping(path = "{courId}", produces = "application/json")
+	public ResponseEntity<List<Course>> deleteCourse(@PathVariable("courId") Integer courseId)
 			throws NoSuchCourseException {
 		List<Course> existingCouse = courseService.getAllCourse();
 		for (Course c : existingCouse) {
@@ -75,8 +77,8 @@ public class CourseController {
 	}
 
 	// request controller to save the Course entered by user
-	// http://localhost:8090/onlinecoursemanagement/course/createcourse
-	@PostMapping("/createcourse")
+	// http://localhost:8090/onlinecoursemanagement/rest/courses
+	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<List<Course>> saveCourse(@Valid @RequestBody Course course) 
 			throws DuplicateCourseException {
 		List<Course> existingCouse = courseService.getAllCourse();
@@ -90,8 +92,8 @@ public class CourseController {
 	}
 
 	// request controller to update the Course as mentioned by user
-	// http://localhost:8090/onlinecoursemanagement/course/updatecourse
-	@PutMapping("/updatecourse")
+	// http://localhost:8090/onlinecoursemanagement/rest/courses
+	@PutMapping(path = "{courId}", produces = "application/json")
 	public ResponseEntity<List<Course>> updateCourse(@RequestBody Course course) 
 			throws NoSuchCourseException {
 		List<Course> existingCouse = courseService.getAllCourse();

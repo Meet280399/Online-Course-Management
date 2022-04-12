@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,8 @@ import com.course_management.service.FeedbackService;
 import com.course_management.service.InstructorService;
 
 @RestController
-@RequestMapping("/feedback")
+@CrossOrigin
+@RequestMapping("rest/feedbacks")
 public class FeedbackController {
 
 	// connecting the controller with the feedback service class
@@ -32,7 +34,7 @@ public class FeedbackController {
 
 	// requests the controller to get the list of Feedbacks
 	// http://localhost:8090/onlinecoursemanagement/feedback/feedbacklist
-	@GetMapping("/feedbacklist")
+	@GetMapping(produces = "application/json")
 	public ResponseEntity<List<Feedback>> getAllFeedbacks() {
 		List<Feedback> feedbackList = feedbackService.getAllFeedbacks();
 		if (feedbackList.isEmpty()) {
@@ -43,8 +45,8 @@ public class FeedbackController {
 
 	// request controller to delete the feedback with the Id mentioned by Instructor
 	// http://localhost:8090/onlinecoursemanagement/feedback/deletefeedback/605
-	@DeleteMapping("/deletefeedback/{feedbackId}")
-	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedbackId") Integer feedbackId)
+	@DeleteMapping(path = "{feedId}", produces = "application/json")
+	public ResponseEntity<List<Feedback>> deleteFeedback(@PathVariable("feedId") Integer feedbackId)
 			throws NoSuchFeedbackException {
 		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
 		for (Feedback f : existingFeedback) {
@@ -59,7 +61,7 @@ public class FeedbackController {
 
 	// request controller to save the feedback by Instructor
 	// http://localhost:8090/onlinecoursemanagement/feedback/createfeedback
-	@PostMapping("/createfeedback")
+	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<List<Feedback>> saveFeedback(@Valid @RequestBody Feedback feedback) {
 		List<Feedback> feedbacks = feedbackService.saveFeedback(feedback);
 		if (feedbacks == null) {
@@ -70,7 +72,7 @@ public class FeedbackController {
 
 	// request controller to update the feedback by Instructor
 	// http://localhost:8090/onlinecoursemanagement/feedback/updatefeedback
-	@PutMapping("/updatefeedback")
+	@PutMapping(path = "{feedId}", produces = "application/json")
 	public ResponseEntity<List<Feedback>> updateFeedback(@RequestBody Feedback feedback)
 			throws NoSuchFeedbackException {
 		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
@@ -86,8 +88,8 @@ public class FeedbackController {
 
 	// request controller to find feedback with Id mentioned by Instructor
 	// http://localhost:8090/onlinecoursemanagement/feedback/findfeedback/601
-	@GetMapping("/findfeedback/{feedbackId}")
-	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedbackId") Integer feedbackId)
+	@GetMapping(path = "{feedId}", produces = "application/json")
+	public ResponseEntity<Feedback> findFeedback(@PathVariable("feedId") Integer feedbackId)
 			throws NoSuchFeedbackException {
 		List<Feedback> existingFeedback = feedbackService.getAllFeedbacks();
 		for (Feedback f : existingFeedback) {

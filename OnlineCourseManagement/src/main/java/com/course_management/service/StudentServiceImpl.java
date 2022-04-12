@@ -70,6 +70,17 @@ public class StudentServiceImpl implements StudentService {
 		}
 		
 	}
+	
+	@Override
+	public String checkStudent(Student student) throws StudentNotFoundException {
+		try {
+			String checkStudent = studentRepo.getStudent(student.getStudentEmail(), student.getPassword());
+			System.out.println(checkStudent);
+			return checkStudent;
+		} catch (Exception e) {
+			throw new StudentNotFoundException("student not found");
+		}
+	}
 
 //	@Override
 //	public int createStudent(Student student) {

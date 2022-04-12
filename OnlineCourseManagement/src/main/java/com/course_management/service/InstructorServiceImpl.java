@@ -11,6 +11,7 @@ import com.course_management.dao.InstructorRepository;
 import com.course_management.exception.DuplicateInstructorException;
 import com.course_management.exception.InstructorNotFoundException;
 import com.course_management.exception.NoSuchFeedbackException;
+import com.course_management.exception.StudentNotFoundException;
 import com.course_management.model.Feedback;
 import com.course_management.model.Instructor;
 
@@ -71,6 +72,17 @@ public class InstructorServiceImpl implements InstructorService {
 		catch (Exception e) {
 			System.out.println("Inside Implementation");
 			throw new InstructorNotFoundException("Instructor is not Present in Database");
+		}
+	}
+
+	@Override
+	public String checkInstructor(Instructor instructor) throws InstructorNotFoundException {
+		try {
+			String checkInstructor = instructorRepo.getInstructor(instructor.getEmail(), instructor.getInstPassword());
+			System.out.println(checkInstructor);
+			return checkInstructor;
+		} catch (Exception e) {
+			throw new InstructorNotFoundException("instructor not found");
 		}
 	}
 

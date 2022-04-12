@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -56,6 +57,9 @@ public class Student {
 	@Column(name = "student_mobile")
 	@NotNull(message = "Student Mobile Number is mandatory")
 	private long studentMobile;
+	
+	@Column(name = "password")
+	private String password;
 
 //	@OneToMany(mappedBy="student",cascade=CascadeType.ALL)
 //	private Set<Course> courses = new HashSet<>();
@@ -64,6 +68,15 @@ public class Student {
 	@OneToMany(targetEntity = Course.class)
 	@JoinColumn(name = "student_id")
 	private Set<Course> courses;
+	
+	
+//	@ManyToOne
+//	@JoinColumn(name = "cour_no")
+//	private Course course;
+	
+	@ManyToOne
+	@JoinColumn(name="instructor_no") //dept_no name of the column from dept_master table of database
+	private Instructor instructor;
 
 	/**
 	 * student default constructor
@@ -150,10 +163,11 @@ public class Student {
 		this.courses = courses;
 	}
 
-	public void addCourse(Course course) {
-		course.setStudent(this);
-		this.getCourses().add(course);
-	}
+//	public void addCourse(Course course) {
+//		course.setStudent(this);
+//		this.getCourses().add(course);
+//	}
+	
 
 	@Override
 	public String toString() {
@@ -162,4 +176,28 @@ public class Student {
 				+ "]";
 	}
 
+//	public Course getCourse() {
+//		return course;
+//	}
+//
+//	public void setCourse(Course course) {
+//		this.course = course;
+//	}
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 }

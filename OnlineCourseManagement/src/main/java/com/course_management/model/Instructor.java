@@ -25,6 +25,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -40,13 +41,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Table(name = "instructor")
 public class Instructor {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "instructor_id")
-	@NotNull(message = "Instructor Id is mandatory")
+//	@NotNull(message = "Instructor Id is mandatory")
 	private int instructorId;
 
 	@Column(name = "instructor_name")
-	@NotEmpty(message = "Instructor Name is mandatory")
+//	@NotEmpty(message = "Instructor Name is mandatory")
 	private String name;
 
 	@Column(name = "instructor_email")
@@ -63,6 +64,9 @@ public class Instructor {
 //	@Column(name = "grades_given")
 	@Column(name = "grade_given")
 	private int grades;
+	
+	@Column(name = "inst_password")
+	private String instPassword;
 
 	// entity relation with the feedback entity (OneToMany)
 	@OneToMany(targetEntity = Feedback.class)
@@ -76,7 +80,7 @@ public class Instructor {
 	@OneToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
-
+	
 	/**
 	 * instructor default constructor
 	 */
@@ -189,6 +193,8 @@ public class Instructor {
 //		course.setInstructor(this);
 //		this.getCourse();
 //	}
+	
+	
 
 	@Override
 	public String toString() {
@@ -196,5 +202,14 @@ public class Instructor {
 				+ mobileNo + ", salary=" + salary + ", grades=" + grades + ", feedbacks=" + feedbacks + ", course="
 				+ course + "]";
 	}
+
+	public String getInstPassword() {
+		return instPassword;
+	}
+
+	public void setInstPassword(String instPassword) {
+		this.instPassword = instPassword;
+	}
+	
 
 }

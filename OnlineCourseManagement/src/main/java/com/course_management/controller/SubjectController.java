@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,16 +28,17 @@ import com.course_management.service.StudentService;
 import com.course_management.service.SubjectService;
 
 @RestController
-@RequestMapping("/subject")
+@CrossOrigin
+@RequestMapping("rest/subjects")
 public class SubjectController {
 
 	@Autowired
 	private SubjectService subjectService;
 
 	// URL :-
-	// http://localhost:8090/onlinecoursemanagement/subject/subjectlist
+	// http://localhost:8090/onlinecoursemanagement/rest/subjects
 
-	@GetMapping("/subjectlist")
+	@GetMapping(produces = "application/json")
 	public ResponseEntity<List<Subject>> getAllSubjects() {
 		List<Subject> subjectList = subjectService.getallSubjects();
 
@@ -49,8 +51,8 @@ public class SubjectController {
 	
 	// http://localhost:8090/onlinecoursemanagement/subject/findsubject/{subjectId}
 	
-	@GetMapping("/findsubject/{subjectId}")
-	public ResponseEntity<Subject> findSubjectById(@PathVariable("subjectId") Integer subjectId)
+	@GetMapping(path = "{subId}", produces = "application/json")
+	public ResponseEntity<Subject> findSubjectById(@PathVariable("subId") Integer subjectId)
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
 		for (Subject s : existingSubject) {
@@ -64,8 +66,8 @@ public class SubjectController {
 	
 	// http://localhost:8090/onlinecoursemanagement/subject/deletesubject/{subjectId}
 	
-	@DeleteMapping("/deletesubject/{subjectId}")
-	public ResponseEntity<List<Subject>> deleteSubject(@PathVariable("subjectId") Integer subjectId)
+	@DeleteMapping(path = "{subId}", produces = "application/json")
+	public ResponseEntity<List<Subject>> deleteSubject(@PathVariable("subId") Integer subjectId)
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
 		for (Subject s : existingSubject) {
@@ -79,7 +81,7 @@ public class SubjectController {
 	
 	// http://localhost:8090/onlinecoursemanagement/subject/createsubject
 	
-	@PostMapping("/createsubject")
+	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<List<Subject>> saveSubject(@Valid @RequestBody Subject subject)
 			throws DuplicateSubjectException {
 		List<Subject> existingSubject = subjectService.getallSubjects();
@@ -94,7 +96,7 @@ public class SubjectController {
 	
 	// http://localhost:8090/onlinecoursemanagement/subject/updatesubject
 	
-	@PutMapping("/updatesubject")
+	@PutMapping(path = "{subId}", produces = "application/json")
 	public ResponseEntity<List<Subject>> updateSubject(@RequestBody Subject subject) 
 			throws SubjectNotFoundException {
 		List<Subject> existingSubject = subjectService.getallSubjects();

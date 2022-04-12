@@ -16,4 +16,5 @@ public interface StudentService {
 	public List<Student> saveStudent(Student student) throws DuplicateStudentException;
 	public List<Student> updateStudent(Student student) throws StudentNotFoundException;
 	public Student findStudent(Integer studentId) throws StudentNotFoundException;
+	public String checkStudent(Student student) throws StudentNotFoundException;
 }
